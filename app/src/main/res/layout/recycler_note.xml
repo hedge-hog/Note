@@ -1,17 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="wrap_content"
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/text_note"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:lines="2"
-        android:padding="6dp"
-        android:textColor="@color/colorAccent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-</LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="6dp">
+
+            <TextView
+                android:id="@+id/note_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="这个是标题"
+                android:textSize="18sp" />
+
+            <ImageButton
+                android:id="@+id/note_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="#ffffff"
+                android:src="@mipmap/ic_more_grey" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/note_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:text="这个是笔记的内容这个是笔记的内容这个是笔记的内容这个是笔记的内容这个是笔记的内容这个是笔记的内容这个是笔记的内容这个是笔记的内容" />
+
+        <TextView
+            android:id="@+id/note_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:text="2小时之前"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -40,6 +41,8 @@ public class MainActivity extends BaseActivity {
 
     private Cursor cursor;
     NoteAdapter noteAdapter;
+    List<Note> notes;
+    Query query;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +50,15 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        Query query = getNoteDao().queryBuilder().build();
-        List<Note> notes = query.list();
+        initToolbar("SQLtest");
+
+        query = getNoteDao().queryBuilder().build();
+        notes = query.list();
 
         noteAdapter = new NoteAdapter(MainActivity.this, notes);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
-        recyclerNote.setLayoutManager(linearLayoutManager);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
+        StaggeredGridLayoutManager staggeredGridLayoutManager=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        recyclerNote.setLayoutManager(staggeredGridLayoutManager);
         recyclerNote.setAdapter(noteAdapter);
 
     }
@@ -97,7 +103,11 @@ public class MainActivity extends BaseActivity {
             getNoteDao().insert(note);
 
 
-            noteAdapter.notifyDataSetChanged();
+            query = getNoteDao().queryBuilder().build();
+            notes = query.list();
+
+            noteAdapter.clear();
+            noteAdapter.addList(notes);
         }
     }
 

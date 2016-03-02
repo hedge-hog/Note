@@ -1,44 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hedgehog.note.ui.activity.MainActivity">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <include layout="@layout/toolbar" />
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="com.hedgehog.note.ui.activity.MainActivity">
+        android:layout_height="match_parent">
 
-        <include layout="@layout/toolbar" />
-
-        <EditText
-            android:id="@+id/edit_add"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@android:color/transparent"
-            android:gravity="top"
-            android:padding="16dp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context="com.hedgehog.note.ui.activity.MainActivity">
 
-        <Button
-            android:id="@+id/btn_add"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="创建" />
 
-        <Button
-            android:id="@+id/btn_search"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="搜索" />
+            <EditText
+                android:id="@+id/edit_add"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:gravity="top"
+                android:padding="16dp" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recy_note"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="创建" />
 
-        </android.support.v7.widget.RecyclerView>
+            <Button
+                android:id="@+id/btn_search"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="搜索" />
 
-    </LinearLayout>
-</ScrollView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recy_note"
+                android:background="#f3f4f8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
