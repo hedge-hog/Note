@@ -4,15 +4,19 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.hedgehog.note.R;
+import com.hedgehog.note.adapter.BaseRecyclerviewAdapter;
 import com.hedgehog.note.adapter.NoteAdapter;
 import com.hedgehog.note.bean.Note;
 import com.hedgehog.note.dao.NoteDao;
@@ -56,8 +60,34 @@ public class MainActivity extends BaseActivity {
         notes = query.list();
 
         noteAdapter = new NoteAdapter(MainActivity.this, notes);
+
+
+        /**
+         *  BaseAdapter的内部定义的接口,将recyclerview内部item的点击事件转移到Adapter外部
+         */
+        noteAdapter.setOnInViewClickListener(R.id.note_more,
+                new BaseRecyclerviewAdapter.onInternalClickListenerImpl<Note>() {
+                    @Override
+                    public void OnClickListener(View parentV, View v, Integer position, Note values) {
+                        super.OnClickListener(parentV, v, position, values);
+
+                        Toast.makeText(MainActivity.this,"=======",Toast.LENGTH_SHORT).show();
+                        PopupMenu popupMenu = new PopupMenu(MainActivity.this, v);
+                        popupMenu.getMenuInflater().inflate(R.menu.item_popu_menu, popupMenu.getMenu());
+                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+
+                                return false;
+                            }
+                        });
+                        popupMenu.show();
+                    }
+                });
+
+
 //        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
-        StaggeredGridLayoutManager staggeredGridLayoutManager=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerNote.setLayoutManager(staggeredGridLayoutManager);
         recyclerNote.setAdapter(noteAdapter);
 
@@ -106,8 +136,7 @@ public class MainActivity extends BaseActivity {
             query = getNoteDao().queryBuilder().build();
             notes = query.list();
 
-            noteAdapter.clear();
-            noteAdapter.addList(notes);
+            noteAdapter.setList(notes);
         }
     }
 
