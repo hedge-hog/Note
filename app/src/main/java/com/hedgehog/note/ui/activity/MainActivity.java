@@ -1,5 +1,6 @@
 package com.hedgehog.note.ui.activity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.dao.query.Query;
 import de.greenrobot.dao.query.QueryBuilder;
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
 
 public class MainActivity extends BaseActivity {
 
@@ -48,6 +50,7 @@ public class MainActivity extends BaseActivity {
     List<Note> notes;
     Query query;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +58,7 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         initToolbar("SQLtest");
+
 
         query = getNoteDao().queryBuilder().build();
         notes = query.list();
@@ -93,6 +97,16 @@ public class MainActivity extends BaseActivity {
                         popupMenu.show();
                     }
                 });
+
+
+        noteAdapter.setOnInViewClickListener(R.id.note_content_ll, new BaseRecyclerviewAdapter.onInternalClickListenerImpl<Note>() {
+            @Override
+            public void OnClickListener(View parentV, View v, Integer position, Note values) {
+                super.OnClickListener(parentV, v, position, values);
+
+                startActivity(new Intent(MainActivity.this, NoteDetailActivity.class));
+            }
+        });
     }
 
 
@@ -168,7 +182,7 @@ public class MainActivity extends BaseActivity {
         } else {
             Query query = getNoteDao().queryBuilder()
 //                    .where(NoteDao.Properties.Text.eq(noteText))
-                    .where(NoteDao.Properties.Text.like("%"+noteText+"%"))
+                    .where(NoteDao.Properties.Text.like("%" + noteText + "%"))
                     .orderAsc(NoteDao.Properties.Date)
                     .build();
             // 查询结果以 List 返回
