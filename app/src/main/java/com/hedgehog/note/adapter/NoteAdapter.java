@@ -55,6 +55,7 @@ public class NoteAdapter extends BaseRecyclerviewAdapter<Note> {
         super.setList(list);
         this.listNote.clear();
         this.listNote.addAll(list);
+        notifyDataSetChanged();
     }
 
     /**

@@ -8,45 +8,39 @@
 
     <include layout="@layout/toolbar" />
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.hedgehog.note.ui.activity.MainActivity">
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/edit_add"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:context="com.hedgehog.note.ui.activity.MainActivity">
+            android:layout_height="100dp"
+            android:background="@android:color/transparent"
+            android:gravity="top"
+            android:padding="16dp" />
 
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="创建" />
 
-            <EditText
-                android:id="@+id/edit_add"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@android:color/transparent"
-                android:gravity="top"
-                android:padding="16dp" />
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="搜索" />
 
-            <Button
-                android:id="@+id/btn_add"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:text="创建" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recy_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f3f4f8">
 
-            <Button
-                android:id="@+id/btn_search"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:text="搜索" />
+        </android.support.v7.widget.RecyclerView>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recy_note"
-                android:background="#f3f4f8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </android.support.v7.widget.RecyclerView>
-
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 </LinearLayout>
