@@ -18,6 +18,7 @@ public class BaseActivity extends AppCompatSwipeBackActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mToolbar.setNavigationIcon(R.mipmap.ic_arrow_back_white_24dp);
     }
 
     /**

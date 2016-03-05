@@ -9,5 +9,5 @@
     android:elevation="5dp"
     android:minHeight="?attr/actionBarSize"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-    app:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
+    app:theme="@style/ToolbarTheme"/>
 

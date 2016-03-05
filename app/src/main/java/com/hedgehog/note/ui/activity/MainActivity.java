@@ -4,10 +4,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +24,6 @@ import com.hedgehog.note.adapter.NoteAdapter;
 import com.hedgehog.note.bean.Note;
 import com.hedgehog.note.dao.NoteDao;
 import com.hedgehog.note.ui.BaseApplication;
-import com.hedgehog.note.ui.base.BaseActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,7 +35,7 @@ import butterknife.OnClick;
 import de.greenrobot.dao.query.Query;
 import de.greenrobot.dao.query.QueryBuilder;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends AppCompatActivity {
 
     @Bind(R.id.edit_add)
     EditText editAdd;
@@ -43,7 +46,7 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.recy_note)
     RecyclerView recyclerNote;
 
-    private Cursor cursor;
+    private Toolbar mToolbar;
     NoteAdapter noteAdapter;
     List<Note> notes;
     Query query;
@@ -55,8 +58,9 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        initToolbar("SQLtest");
-
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle("迷你账本");
+        setSupportActionBar(mToolbar);
 
         query = getNoteDao().queryBuilder()
                 .orderDesc(NoteDao.Properties.Date)
@@ -110,6 +114,12 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.item_add_note_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
     private NoteDao getNoteDao() {
         return ((BaseApplication) this.getApplicationContext()).getDaoSession().getNoteDao();
     }
@@ -148,13 +158,10 @@ public class MainActivity extends BaseActivity {
             Note note = new Note(null, noteText, comment, new Date());
             getNoteDao().insert(note);
 
-
-
             query = getNoteDao().queryBuilder()
                     .orderDesc(NoteDao.Properties.Date)
                     .build();
             notes = query.list();
-
 
             noteAdapter.setList(notes);
         }
@@ -196,13 +203,5 @@ public class MainActivity extends BaseActivity {
         QueryBuilder.LOG_VALUES = true;
 
     }
-
-    /**
-     * 修改日记
-     */
-    private void modifyNote() {
-
-    }
-
 
 }
