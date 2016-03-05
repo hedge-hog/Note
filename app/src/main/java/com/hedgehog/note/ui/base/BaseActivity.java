@@ -1,7 +1,5 @@
 package com.hedgehog.note.ui.base;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
@@ -10,20 +8,16 @@ import com.hedgehog.note.R;
 /**
  * Created by hedge_hog on 16/3/1.
  */
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatSwipeBackActivity {
     public Toolbar mToolbar;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     public void initToolbar(String title) {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle(title);
         setSupportActionBar(mToolbar);
-//        getSupportActionBar().setHomeButtonEnabled(true);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     /**

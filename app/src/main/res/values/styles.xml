@@ -18,4 +18,9 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <!-- 单独为MainActivity设置不透明，解决SwipeBackLayout返回时显示桌面而不是上一层的Bug -->
+    <style name="AppThemeNotTranslucent" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
+
 </resources>

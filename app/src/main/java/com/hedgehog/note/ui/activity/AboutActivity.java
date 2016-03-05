@@ -1,15 +1,24 @@
 package com.hedgehog.note.ui.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.hedgehog.note.R;
+import com.hedgehog.note.ui.base.BaseActivity;
 
-public class AboutActivity extends AppCompatActivity {
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+
+public class AboutActivity extends BaseActivity {
+
+    private SwipeBackLayout mSwipeBackLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+
+        initToolbar("关于");
+
+        mSwipeBackLayout = getSwipeBackLayout();
+        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
     }
 }

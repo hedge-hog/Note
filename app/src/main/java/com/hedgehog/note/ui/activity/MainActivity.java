@@ -8,7 +8,6 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -32,7 +31,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.dao.query.Query;
 import de.greenrobot.dao.query.QueryBuilder;
-import me.imid.swipebacklayout.lib.SwipeBackLayout;
 
 public class MainActivity extends BaseActivity {
 
@@ -60,7 +58,9 @@ public class MainActivity extends BaseActivity {
         initToolbar("SQLtest");
 
 
-        query = getNoteDao().queryBuilder().build();
+        query = getNoteDao().queryBuilder()
+                .orderDesc(NoteDao.Properties.Date)
+                .build();
         notes = query.list();
 
         noteAdapter = new NoteAdapter(MainActivity.this, notes);
@@ -149,7 +149,10 @@ public class MainActivity extends BaseActivity {
             getNoteDao().insert(note);
 
 
-            query = getNoteDao().queryBuilder().build();
+
+            query = getNoteDao().queryBuilder()
+                    .orderDesc(NoteDao.Properties.Date)
+                    .build();
             notes = query.list();
 
 
@@ -181,7 +184,6 @@ public class MainActivity extends BaseActivity {
             Toast.makeText(this, "请先输入文字!", Toast.LENGTH_SHORT).show();
         } else {
             Query query = getNoteDao().queryBuilder()
-//                    .where(NoteDao.Properties.Text.eq(noteText))
                     .where(NoteDao.Properties.Text.like("%" + noteText + "%"))
                     .orderAsc(NoteDao.Properties.Date)
                     .build();
