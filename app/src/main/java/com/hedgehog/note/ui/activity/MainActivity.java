@@ -1,22 +1,17 @@
 package com.hedgehog.note.ui.activity;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.hedgehog.note.R;
 import com.hedgehog.note.adapter.BaseRecyclerviewAdapter;
@@ -25,26 +20,19 @@ import com.hedgehog.note.bean.Note;
 import com.hedgehog.note.dao.NoteDao;
 import com.hedgehog.note.ui.BaseApplication;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.dao.query.Query;
-import de.greenrobot.dao.query.QueryBuilder;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Bind(R.id.edit_add)
-    EditText editAdd;
-    @Bind(R.id.btn_add)
-    Button btnAdd;
-    @Bind(R.id.btn_search)
-    Button btnSearch;
     @Bind(R.id.recy_note)
     RecyclerView recyclerNote;
+    @Bind(R.id.fab_add_note)
+    FloatingActionButton fabAddNote;
 
     private Toolbar mToolbar;
     NoteAdapter noteAdapter;
@@ -113,10 +101,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @OnClick(R.id.fab_add_note)
+    protected void addNote(View v) {
+        switch (v.getId()) {
+            case R.id.fab_add_note:
+                startActivity(new Intent(this, AddNoteActivity.class));
+                break;
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.item_add_note_menu, menu);
+        getMenuInflater().inflate(R.menu.item_menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -128,44 +125,8 @@ public class MainActivity extends AppCompatActivity {
         return ((BaseApplication) this.getApplicationContext()).getDb();
     }
 
-    @OnClick({R.id.btn_add, R.id.btn_search})
-    protected void btnClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_search:
-                queryNote();
-                break;
-            case R.id.btn_add:
-                addNote();
-                break;
-        }
-    }
 
-    /**
-     * 添加笔记
-     */
-    private void addNote() {
 
-        String noteText = editAdd.getText() + "";
-        editAdd.setText("");
-
-        SimpleDateFormat smf = new SimpleDateFormat("yyyy年MM月dd日");
-        String comment = smf.format(new Date());
-
-        if (TextUtils.isEmpty(noteText)) {
-            Toast.makeText(this, "请先输入文字!", Toast.LENGTH_SHORT).show();
-        } else {
-//          向数据库里增加数据
-            Note note = new Note(null, noteText, comment, new Date());
-            getNoteDao().insert(note);
-
-            query = getNoteDao().queryBuilder()
-                    .orderDesc(NoteDao.Properties.Date)
-                    .build();
-            notes = query.list();
-
-            noteAdapter.setList(notes);
-        }
-    }
 
     /**
      * 删除日记
@@ -183,25 +144,25 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 搜索日记
      */
-    private void queryNote() {
-
-        String noteText = editAdd.getText().toString();
-        editAdd.setText("");
-        if (TextUtils.isEmpty(noteText)) {
-            Toast.makeText(this, "请先输入文字!", Toast.LENGTH_SHORT).show();
-        } else {
-            Query query = getNoteDao().queryBuilder()
-                    .where(NoteDao.Properties.Text.like("%" + noteText + "%"))
-                    .orderAsc(NoteDao.Properties.Date)
-                    .build();
-            // 查询结果以 List 返回
-            notes = query.list();
-            noteAdapter.setList(notes);
-        }
-        // 在 QueryBuilder 类中内置两个 Flag 用于方便输出执行的 SQL 语句与传递参数的值
-        QueryBuilder.LOG_SQL = true;
-        QueryBuilder.LOG_VALUES = true;
-
-    }
+//    private void queryNote() {
+//
+//        String noteText = editAdd.getText().toString();
+//        editAdd.setText("");
+//        if (TextUtils.isEmpty(noteText)) {
+//            Toast.makeText(this, "请先输入文字!", Toast.LENGTH_SHORT).show();
+//        } else {
+//            Query query = getNoteDao().queryBuilder()
+//                    .where(NoteDao.Properties.Text.like("%" + noteText + "%"))
+//                    .orderAsc(NoteDao.Properties.Date)
+//                    .build();
+//            // 查询结果以 List 返回
+//            notes = query.list();
+//            noteAdapter.setList(notes);
+//        }
+//        // 在 QueryBuilder 类中内置两个 Flag 用于方便输出执行的 SQL 语句与传递参数的值
+//        QueryBuilder.LOG_SQL = true;
+//        QueryBuilder.LOG_VALUES = true;
+//
+//    }
 
 }
