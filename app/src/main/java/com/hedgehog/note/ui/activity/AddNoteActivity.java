@@ -1,6 +1,7 @@
 package com.hedgehog.note.ui.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 public class AddNoteActivity extends BaseActivity {
 
@@ -47,7 +49,7 @@ public class AddNoteActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.menu.item_add_note_menu:
+            case R.id.item_add_note:
                 addNote();
                 break;
         }
@@ -64,24 +66,25 @@ public class AddNoteActivity extends BaseActivity {
     private void addNote() {
 
         String noteText = editAddNoteContent.getText() + "";
-
-        SimpleDateFormat smf = new SimpleDateFormat("yyyy年MM月dd日");
-        String comment = smf.format(new Date());
+        String noteTitle = editAddNoteTitle.getText() + "";
 
         if (TextUtils.isEmpty(noteText)) {
-            Toast.makeText(this, "请先输入文字!", Toast.LENGTH_SHORT).show();
+            Snackbar.make(editAddNoteContent, "你在逗我吗?写点东西再保存好吗?", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
         } else {
 //          向数据库里增加数据
-            Note note = new Note(null, noteText, comment,new Date());
+            Note note = new Note(null, noteText, noteTitle, new Date());
             getNoteDao().insert(note);
+            EventBus.getDefault().post("update");
+//          发送广播通知主页面进行数据的更新
+            finish();
 
-//            query = getNoteDao().queryBuilder()
-//                    .orderDesc(NoteDao.Properties.Date)
-//                    .build();
-//            notes = query.list();
-//
-//            noteAdapter.setList(notes);
         }
     }
 
+    @Override
+    protected void onDestroy() {
+
+
+        super.onDestroy();
+    }
 }

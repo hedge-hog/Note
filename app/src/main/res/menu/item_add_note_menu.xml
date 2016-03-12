@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_add_note"
+        android:id="@+id/item_add_note"
         android:orderInCategory="101"
         android:title="保存"
         app:showAsAction="always" />

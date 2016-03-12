@@ -9,7 +9,10 @@ import android.widget.TextView;
 
 import com.hedgehog.note.R;
 import com.hedgehog.note.bean.Note;
+import com.hedgehog.note.util.CustomDateFormat;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +49,14 @@ public class NoteAdapter extends BaseRecyclerviewAdapter<Note> {
 
         viewholder.noteContent.setText(listNote.get(position).getText());
         viewholder.noteTitle.setText(listNote.get(position).getComment());
-        viewholder.noteTime.setText(listNote.get(position).getDate() + "");
+
+        SimpleDateFormat sfd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        try {
+            viewholder.noteTime.setText(CustomDateFormat.format(sfd.format(listNote.get(position).getDate())));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -58,9 +68,7 @@ public class NoteAdapter extends BaseRecyclerviewAdapter<Note> {
         notifyDataSetChanged();
     }
 
-    /**
-     *
-     */
+
     class NoteViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.note_content)
         TextView noteContent;

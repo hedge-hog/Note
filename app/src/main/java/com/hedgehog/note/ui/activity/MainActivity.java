@@ -26,6 +26,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.dao.query.Query;
+import de.greenrobot.event.EventBus;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        EventBus.getDefault().register(MainActivity.this);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle("迷你账本");
@@ -95,11 +98,31 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void OnClickListener(View parentV, View v, Integer position, Note values) {
                 super.OnClickListener(parentV, v, position, values);
-
-                startActivity(new Intent(MainActivity.this, NoteDetailActivity.class));
+                Long id = notes.get(position).getId();
+                Intent i = new Intent(MainActivity.this, NoteDetailActivity.class);
+                i.putExtra("noteId", id);
+                startActivity(i);
             }
         });
     }
+
+
+    /**
+     * Eventbus的通知
+     *
+     * @param event
+     */
+    public void onEventMainThread(String event) {
+        if (event.equals("update")) {
+            Query query = getNoteDao().queryBuilder()
+                    .orderAsc(NoteDao.Properties.Date)
+                    .build();
+            // 查询结果以 List 返回
+            notes = query.list();
+            noteAdapter.setList(notes);
+        }
+    }
+
 
     @OnClick(R.id.fab_add_note)
     protected void addNote(View v) {
@@ -124,8 +147,6 @@ public class MainActivity extends AppCompatActivity {
     private SQLiteDatabase getDb() {
         return ((BaseApplication) this.getApplicationContext()).getDb();
     }
-
-
 
 
     /**
@@ -164,5 +185,9 @@ public class MainActivity extends AppCompatActivity {
 //        QueryBuilder.LOG_VALUES = true;
 //
 //    }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(MainActivity.this);
+    }
 }
