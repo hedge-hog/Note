@@ -1,18 +1,14 @@
 package com.hedgehog.note.ui.activity;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.inputmethod.InputMethodManager;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hedgehog.note.R;
 import com.hedgehog.note.bean.Note;
@@ -30,7 +26,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.dao.query.Query;
 import de.greenrobot.event.EventBus;
-import me.imid.swipebacklayout.lib.SwipeBackLayout;
 
 public class NoteDetailActivity extends BaseActivity {
 
@@ -57,16 +52,19 @@ public class NoteDetailActivity extends BaseActivity {
     }
 
     private void initView(Long noteId) {
-
-        hideKeyBoard(editNoteTitle);
-
         Query query = getNoteDao().queryBuilder()
                 .where(NoteDao.Properties.Id.eq(noteId))
                 .build();
         List<Note> notes = query.list();
 
+
         editNoteTitle.setText(notes.get(0).getComment());
         editNoteContent.setText(notes.get(0).getText());
+        editNoteTitle.setSelection(notes.get(0).getComment().length());
+        editNoteContent.setSelection(notes.get(0).getText().length());
+
+        editNoteContent.setOnFocusChangeListener(f);
+        editNoteTitle.setOnFocusChangeListener(f);
 
         SimpleDateFormat sfd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
@@ -74,7 +72,6 @@ public class NoteDetailActivity extends BaseActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
 
         editNoteTitle.addTextChangedListener(t);
         editNoteContent.addTextChangedListener(t);
@@ -101,6 +98,13 @@ public class NoteDetailActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private View.OnFocusChangeListener f = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            editNoteContent.setCursorVisible(true);
+            editNoteTitle.setCursorVisible(true);
+        }
+    };
 
     private TextWatcher t = new TextWatcher() {
         @Override
@@ -123,13 +127,11 @@ public class NoteDetailActivity extends BaseActivity {
 
             }
 
-
             if (TextUtils.isEmpty(noteText) && TextUtils.isEmpty(noteTitle)) {
                 getNoteDao().deleteByKey(noteId);
                 EventBus.getDefault().post("update");
 
             }
-
 
         }
 
@@ -151,12 +153,6 @@ public class NoteDetailActivity extends BaseActivity {
         getNoteDao().deleteByKey(noteId);
         EventBus.getDefault().post("update");
         finish();
-    }
-
-
-    private void hideKeyBoard(EditText editText) {
-        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
 
     @Override

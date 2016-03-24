@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="com.hedgehog.note.ui.activity.AddNoteActivity">
 
@@ -26,6 +27,7 @@
                 android:background="@android:color/transparent"
                 android:hint="标题"
                 android:textSize="@dimen/text_title"
+                android:cursorVisible="false"
                 android:textColor="@color/text_color_primary"
                 android:padding="@dimen/edittext_title_padding"
                 android:textStyle="bold" />
@@ -36,6 +38,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:hint="内容"
+                android:cursorVisible="false"
                 android:textColor="@color/text_color_primary"
                 android:padding="@dimen/normal_padding"
                 android:textSize="@dimen/text_content" />
