@@ -2,9 +2,11 @@ package com.hedgehog.note.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hedgehog.note.R;
@@ -30,7 +32,7 @@ public class NoteAdapter extends BaseRecyclerviewAdapter<Note> {
     public NoteAdapter(Context mContext, List<Note> list) {
         super(mContext, list);
         this.mContext = mContext;
-        this.listNote = new ArrayList<>(list);
+        this.listNote = list;
     }
 
     @Override
@@ -49,6 +51,11 @@ public class NoteAdapter extends BaseRecyclerviewAdapter<Note> {
 
         viewholder.noteContent.setText(listNote.get(position).getText());
         viewholder.noteTitle.setText(listNote.get(position).getComment());
+
+
+        if (TextUtils.isEmpty(viewholder.noteTitle.getText())) {
+            viewholder.relNoteTitle.setVisibility(View.GONE);
+        }
 
         SimpleDateFormat sfd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -76,11 +83,12 @@ public class NoteAdapter extends BaseRecyclerviewAdapter<Note> {
         TextView noteTitle;
         @Bind(R.id.note_time)
         TextView noteTime;
+        @Bind(R.id.rel_note_title)
+        RelativeLayout relNoteTitle;
 
         public NoteViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-
 
         }
     }

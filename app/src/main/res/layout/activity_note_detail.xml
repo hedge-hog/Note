@@ -22,10 +22,13 @@
                 android:id="@+id/edit_note_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="@dimen/margin_top_normal"
                 android:background="@android:color/transparent"
                 android:hint="标题"
-                android:padding="14dp" />
+                android:textSize="@dimen/text_title"
+                android:textColor="@color/text_color_primary"
+                android:padding="@dimen/edittext_title_padding"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edit_note_content"
@@ -33,8 +36,9 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:hint="内容"
-                android:padding="16dp"
-                android:textSize="14sp" />
+                android:textColor="@color/text_color_primary"
+                android:padding="@dimen/normal_padding"
+                android:textSize="@dimen/text_content" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -45,8 +49,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:padding="16dp"
-                    android:text="修改时间:  下午6:44" />
+                    android:padding="@dimen/normal_padding"
+                    android:text="" />
             </RelativeLayout>
 
 

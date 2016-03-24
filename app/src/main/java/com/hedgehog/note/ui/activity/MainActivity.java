@@ -1,9 +1,7 @@
 package com.hedgehog.note.ui.activity;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -32,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Bind(R.id.recy_note)
     RecyclerView recyclerNote;
-    @Bind(R.id.fab_add_note)
-    FloatingActionButton fabAddNote;
 
     private Toolbar mToolbar;
     NoteAdapter noteAdapter;
@@ -50,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         EventBus.getDefault().register(MainActivity.this);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle("迷你账本");
+        mToolbar.setTitle(" ");
         setSupportActionBar(mToolbar);
 
         query = getNoteDao().queryBuilder()
@@ -60,15 +56,10 @@ public class MainActivity extends AppCompatActivity {
 
         noteAdapter = new NoteAdapter(MainActivity.this, notes);
 
-//      LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerNote.setLayoutManager(staggeredGridLayoutManager);
         recyclerNote.setAdapter(noteAdapter);
-
-
-        /**
-         *  BaseAdapter的内部定义的接口,将recyclerview内部item的点击事件转移到Adapter外部
-         */
+//      暂时没用了
         noteAdapter.setOnInViewClickListener(R.id.note_more,
                 new BaseRecyclerviewAdapter.onInternalClickListenerImpl<Note>() {
                     @Override
@@ -83,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 switch (item.getItemId()) {
                                     case R.id.pop_del:
-                                        delNote(notes.get(position).getId());
+
                                         break;
                                 }
                                 return false;
@@ -115,9 +106,8 @@ public class MainActivity extends AppCompatActivity {
     public void onEventMainThread(String event) {
         if (event.equals("update")) {
             Query query = getNoteDao().queryBuilder()
-                    .orderAsc(NoteDao.Properties.Date)
+                    .orderDesc(NoteDao.Properties.Date)
                     .build();
-            // 查询结果以 List 返回
             notes = query.list();
             noteAdapter.setList(notes);
         }
@@ -144,23 +134,6 @@ public class MainActivity extends AppCompatActivity {
         return ((BaseApplication) this.getApplicationContext()).getDaoSession().getNoteDao();
     }
 
-    private SQLiteDatabase getDb() {
-        return ((BaseApplication) this.getApplicationContext()).getDb();
-    }
-
-
-    /**
-     * 删除日记
-     */
-    private void delNote(long id) {
-
-        getNoteDao().deleteByKey(id);
-
-        query = getNoteDao().queryBuilder().build();
-        notes = query.list();
-
-        noteAdapter.setList(notes);
-    }
 
     /**
      * 搜索日记

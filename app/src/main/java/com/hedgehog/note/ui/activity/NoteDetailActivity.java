@@ -1,11 +1,15 @@
 package com.hedgehog.note.ui.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,12 +41,15 @@ public class NoteDetailActivity extends BaseActivity {
     @Bind(R.id.text_note_time)
     TextView textNoteTime;
     Long noteId;
+    String noteText;
+    String noteTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_detail);
         ButterKnife.bind(this);
+
         initToolbar("笔记详情");
         noteId = getIntent().getLongExtra("noteId", 0l);
         initView(noteId);
@@ -51,8 +58,7 @@ public class NoteDetailActivity extends BaseActivity {
 
     private void initView(Long noteId) {
 
-        editNoteTitle.requestFocus();
-        editNoteContent.requestFocus();
+        hideKeyBoard(editNoteTitle);
 
         Query query = getNoteDao().queryBuilder()
                 .where(NoteDao.Properties.Id.eq(noteId))
@@ -68,6 +74,10 @@ public class NoteDetailActivity extends BaseActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+
+        editNoteTitle.addTextChangedListener(t);
+        editNoteContent.addTextChangedListener(t);
     }
 
 
@@ -84,31 +94,81 @@ public class NoteDetailActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.item_add_note:
-                modifyNote();
+            case R.id.item_delete_note:
+                deleteNote();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * 添加笔记
-     */
-    private void modifyNote() {
 
-        String noteText = editNoteContent.getText() + "";
-        String noteTitle = editNoteTitle.getText() + "";
-
-        if (TextUtils.isEmpty(noteText)) {
-            Snackbar.make(editNoteContent, "你在逗我吗?写点东西再保存好吗?", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-        } else {
-//          修改数据库里对应ID的数据
-            Note note = new Note(noteId, noteText, noteTitle, new Date());
-            getNoteDao().update(note);
-            EventBus.getDefault().post("update");
-//          发送广播通知主页面进行数据的更新
-            finish();
+    private TextWatcher t = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
         }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            noteText = editNoteContent.getText() + "";
+            noteTitle = editNoteTitle.getText() + "";
+
+            if (!TextUtils.isEmpty(noteText) || !TextUtils.isEmpty(noteTitle)) {
+
+                Note note = new Note(noteId, noteText, noteTitle, new Date());
+
+                getNoteDao().update(note);
+                EventBus.getDefault().post("update");
+
+            }
+
+
+            if (TextUtils.isEmpty(noteText) && TextUtils.isEmpty(noteTitle)) {
+                getNoteDao().deleteByKey(noteId);
+                EventBus.getDefault().post("update");
+
+            }
+
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            noteText = editNoteContent.getText() + "";
+            noteTitle = editNoteTitle.getText() + "";
+
+            if (TextUtils.isEmpty(noteText) && TextUtils.isEmpty(noteTitle)) {
+                getNoteDao().deleteByKey(noteId);
+                EventBus.getDefault().post("update");
+            }
+
+        }
+    };
+
+    private void deleteNote() {
+        getNoteDao().deleteByKey(noteId);
+        EventBus.getDefault().post("update");
+        finish();
+    }
+
+
+    private void hideKeyBoard(EditText editText) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        noteText = editNoteContent.getText() + "";
+        noteTitle = editNoteTitle.getText() + "";
+
+        if (TextUtils.isEmpty(noteText) && TextUtils.isEmpty(noteTitle)) {
+            getNoteDao().deleteByKey(noteId);
+            EventBus.getDefault().post("update");
+        }
+
     }
 }

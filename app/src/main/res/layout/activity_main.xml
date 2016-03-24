@@ -8,7 +8,7 @@
         android:id="@+id/recy_note"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#f3f4f8"
+        android:background="@color/bg_main_root"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.design.widget.AppBarLayout
@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:elevation="5dp"
+            android:elevation="@dimen/elevation"
             android:minHeight="?attr/actionBarSize"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:theme="@style/ToolbarTheme"
@@ -34,13 +34,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginBottom="@dimen/normal_padding"
+        android:layout_marginRight="@dimen/normal_padding"
         android:clickable="true"
-        android:elevation="4dp"
+        android:elevation="@dimen/elevation"
         android:src="@drawable/ic_mode_edit_white_48dp"
         app:borderWidth="0dp"
-        app:elevation="4dp"
+        app:elevation="@dimen/elevation"
         app:layout_anchor="@id/recy_note"
         app:layout_anchorGravity="right|bottom" />
 
