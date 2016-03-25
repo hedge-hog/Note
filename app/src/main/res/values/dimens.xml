@@ -8,6 +8,6 @@
     <dimen name="text_content">18sp</dimen>
     <dimen name="text_title">22sp</dimen>
     <dimen name="text_time">12sp</dimen>
-    <dimen name="edittext_title_padding">13dp</dimen>
+    <dimen name="edittext_title_padding">14dp</dimen>
     <dimen name="margin_top_normal">30dp</dimen>
 </resources>

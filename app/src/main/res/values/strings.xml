@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">迷你日记</string>
+    <string name="title_activity_setting">迷你日记</string>
+
+    <string name="app_color">更换应用主题</string>
+    <string name="backup">备份笔记到本地</string>
+    <string name="feedback">意见反馈</string>
+    <string name="ratingapp">给应用评分</string>
+    <string name="about">关于</string>
+
 </resources>

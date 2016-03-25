@@ -2,6 +2,7 @@ package com.hedgehog.note.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -60,29 +61,29 @@ public class MainActivity extends AppCompatActivity {
         recyclerNote.setLayoutManager(staggeredGridLayoutManager);
         recyclerNote.setAdapter(noteAdapter);
 //      暂时没用了
-        noteAdapter.setOnInViewClickListener(R.id.note_more,
-                new BaseRecyclerviewAdapter.onInternalClickListenerImpl<Note>() {
-                    @Override
-                    public void OnClickListener(View parentV, View v, final Integer position, Note values) {
-                        super.OnClickListener(parentV, v, position, values);
-
-                        PopupMenu popupMenu = new PopupMenu(MainActivity.this, v);
-                        popupMenu.getMenuInflater().inflate(R.menu.item_popu_menu, popupMenu.getMenu());
-                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                            @Override
-                            public boolean onMenuItemClick(MenuItem item) {
-
-                                switch (item.getItemId()) {
-                                    case R.id.pop_del:
-
-                                        break;
-                                }
-                                return false;
-                            }
-                        });
-                        popupMenu.show();
-                    }
-                });
+//        noteAdapter.setOnInViewClickListener(R.id.note_more,
+//                new BaseRecyclerviewAdapter.onInternalClickListenerImpl<Note>() {
+//                    @Override
+//                    public void OnClickListener(View parentV, View v, final Integer position, Note values) {
+//                        super.OnClickListener(parentV, v, position, values);
+//
+//                        PopupMenu popupMenu = new PopupMenu(MainActivity.this, v);
+//                        popupMenu.getMenuInflater().inflate(R.menu.item_popu_menu, popupMenu.getMenu());
+//                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                            @Override
+//                            public boolean onMenuItemClick(MenuItem item) {
+//
+//                                switch (item.getItemId()) {
+//                                    case R.id.pop_del:
+//
+//                                        break;
+//                                }
+//                                return false;
+//                            }
+//                        });
+//                        popupMenu.show();
+//                    }
+//                });
 
 
         noteAdapter.setOnInViewClickListener(R.id.note_content_ll, new BaseRecyclerviewAdapter.onInternalClickListenerImpl<Note>() {
@@ -128,6 +129,17 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.item_menu_main, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_setting:
+                startActivity(new Intent(MainActivity.this, SettingActivity.class));
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private NoteDao getNoteDao() {
