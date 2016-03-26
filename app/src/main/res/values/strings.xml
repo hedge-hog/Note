@@ -8,4 +8,17 @@
     <string name="ratingapp">给应用评分</string>
     <string name="about">关于</string>
 
+
+    <string name="preference_darktheme">preference_darktheme</string>
+    <string name="preference_change_color">preference_change_color</string>
+    <string name="preference_feedback">preference_feedback</string>
+    <string name="preference_rating_app">preference_rating_app</string>
+    <string name="preference_about">preference_about</string>
+
+
+
+    <string name="change_app_theme">change_app_theme</string>
+
+
+
 </resources>

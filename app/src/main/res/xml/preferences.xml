@@ -9,12 +9,13 @@
 
         <CheckBoxPreference
             android:layout="@layout/preference_item"
-            android:title="卡片式笔记"
-            android:key="notify_priority"
-            android:summaryOn="暂时还没做完"
-            android:summaryOff="暂时还没做完"
+            android:title="夜间模式"
+            android:key="@string/preference_darktheme"
+            android:summaryOn="暂时还没做"
+            android:summaryOff="暂时还没做"
             android:defaultValue="false"/>
         <Preference
+            android:key="@string/preference_change_color"
             android:layout="@layout/preference_item"
             android:title="更改主题颜色"/>
     </PreferenceCategory>
@@ -24,12 +25,15 @@
         android:title="其他">
         <Preference
             android:layout="@layout/preference_item"
+            android:key="@string/preference_feedback"
             android:title="意见反馈"/>
         <Preference
             android:layout="@layout/preference_item"
+            android:key="@string/preference_rating_app"
             android:title="给应用评分"/>
         <Preference
             android:layout="@layout/preference_item"
+            android:key="@string/preference_about"
             android:title="关于"/>
     </PreferenceCategory>
 </PreferenceScreen>
