@@ -15,6 +15,7 @@ import android.widget.GridView;
 
 import com.hedgehog.note.R;
 import com.hedgehog.note.adapter.ColorsListAdapter;
+import com.hedgehog.note.event.NotifyEvent;
 import com.hedgehog.note.util.DialogUtils;
 import com.hedgehog.note.util.PreferenceUtils;
 import com.hedgehog.note.util.SnackbarUtils;
@@ -23,10 +24,14 @@ import com.hedgehog.note.util.ThemeUtils;
 import java.util.Arrays;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Created by hedge_hog on 16/3/24.
  */
 public class SettingFragment extends PreferenceFragment {
+
+    private NotifyEvent<Void> event;
 
     public static SettingFragment newInstance() {
 
@@ -48,7 +53,7 @@ public class SettingFragment extends PreferenceFragment {
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         String key=preference.getKey();
         if(TextUtils.equals(key,getString(getActivity(),R.string.preference_darktheme))){
-            SnackbarUtils.show(getActivity(),R.string.about);
+            SnackbarUtils.show(getActivity(),R.string.none);
         }
 
         if(TextUtils.equals(key,getString(getActivity(),R.string.preference_change_color))){
@@ -56,15 +61,15 @@ public class SettingFragment extends PreferenceFragment {
         }
 
         if(TextUtils.equals(key,getString(getActivity(),R.string.preference_feedback))){
-            SnackbarUtils.show(getActivity(),R.string.about);
+            SnackbarUtils.show(getActivity(),R.string.none);
         }
 
         if(TextUtils.equals(key,getString(getActivity(),R.string.preference_rating_app))){
-            SnackbarUtils.show(getActivity(),R.string.about);
+            SnackbarUtils.show(getActivity(),R.string.none);
         }
 
         if(TextUtils.equals(key,getString(getActivity(),R.string.preference_about))){
-            SnackbarUtils.show(getActivity(),R.string.about);
+            SnackbarUtils.show(getActivity(),R.string.none);
         }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -77,10 +82,9 @@ public class SettingFragment extends PreferenceFragment {
         return "";
     }
 
-
     public void showThemeChooseDialog(){
         AlertDialog.Builder builder = DialogUtils.makeDialogBuilder(getActivity());
-        builder.setTitle(R.string.change_app_theme);
+        builder.setTitle(R.string.change_theme);
         Integer[] res = new Integer[]{R.drawable.red_round, R.drawable.brown_round, R.drawable.blue_round,
                 R.drawable.blue_grey_round, R.drawable.yellow_round, R.drawable.deep_purple_round,
                 R.drawable.pink_round, R.drawable.green_round};
@@ -98,10 +102,21 @@ public class SettingFragment extends PreferenceFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int value = ThemeUtils.getCurrentTheme(getActivity()).getIntValue();
                 if (value != position) {
+//                  将选中的position保存起来
                     PreferenceUtils.putInt(getActivity(), getActivity().getString(R.string.change_app_theme), position);
-//                    notifyChangeTheme();
+                  notifyChangeTheme();
                 }
             }
         });
+    }
+
+
+    private void notifyChangeTheme(){
+        if (event == null){
+            event = new NotifyEvent<>();
+        }
+        event.setType(NotifyEvent.CHANGE_THEME);
+        EventBus.getDefault().post(event);
+//      view.reload();
     }
 }

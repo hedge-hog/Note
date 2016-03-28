@@ -1,9 +1,9 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
 
         <item name="android:textColorPrimary">@color/text_color_primary</item>
         <item name="android:textColorSecondary">@color/text_second_color_primary</item>
@@ -15,9 +15,9 @@
 
     <!-- 单独为MainActivity设置不透明，解决SwipeBackLayout返回时显示桌面而不是上一层的Bug -->
     <style name="AppThemeNotTranslucent" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
         <item name="android:windowBackground">@color/window_background</item>
         <item name="actionMenuTextColor">@android:color/white</item>
         <item name="actionMenuTextAppearance">@style/MenuTextStyle</item>
@@ -42,7 +42,7 @@
         <item name="android:windowExitAnimation">@anim/abc_fade_out</item>
     </style>
 
-    <style name="RedTheme" parent="AppTheme">
+    <style name="RedTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/red</item>
         <item name="colorPrimaryDark">@color/dark_red</item>
         <item name="colorAccent">@color/accent_red</item>
