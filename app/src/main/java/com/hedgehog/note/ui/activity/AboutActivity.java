@@ -9,8 +9,6 @@ import me.imid.swipebacklayout.lib.SwipeBackLayout;
 
 public class AboutActivity extends BaseActivity {
 
-    private SwipeBackLayout mSwipeBackLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +16,7 @@ public class AboutActivity extends BaseActivity {
 
         initToolbar("关于");
 
-        mSwipeBackLayout = getSwipeBackLayout();
-        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
+
+
     }
 }

@@ -1,10 +1,9 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorAccent">@color/colorAccent</item>-->
-
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorPrimary">@color/text_color_primary</item>
         <item name="android:textColorSecondary">@color/text_second_color_primary</item>
         <item name="android:windowBackground">@color/window_background</item>
@@ -15,21 +14,20 @@
 
     <!-- 单独为MainActivity设置不透明，解决SwipeBackLayout返回时显示桌面而不是上一层的Bug -->
     <style name="AppThemeNotTranslucent" parent="Theme.AppCompat.Light.NoActionBar">
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorAccent">@color/colorAccent</item>-->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/window_background</item>
         <item name="actionMenuTextColor">@android:color/white</item>
         <item name="actionMenuTextAppearance">@style/MenuTextStyle</item>
         <item name="android:windowIsTranslucent">false</item>
     </style>
-
+    <!--Toolbar的主题,设置Toolbar的text为白色,图标为白色-->
     <style name="ToolbarTheme" parent="AppTheme">
-        <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">@android:color/white</item>
         <item name="colorControlActivated">@android:color/white</item>
     </style>
-
+    <!--设置menu的style字体的大小和颜色-->
     <style name="MenuTextStyle">
         <item name="actionMenuTextColor">@android:color/white</item>
         <item name="android:textSize">18sp</item>
@@ -42,100 +40,5 @@
         <item name="android:windowExitAnimation">@anim/abc_fade_out</item>
     </style>
 
-    <style name="RedTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/red</item>
-        <item name="colorPrimaryDark">@color/dark_red</item>
-        <item name="colorAccent">@color/accent_red</item>
-    </style>
-
-    <style name="RedDialogTheme" parent="BaseDialogTheme">
-        <item name="colorPrimary">@color/red</item>
-        <item name="colorPrimaryDark">@color/dark_red</item>
-        <item name="colorAccent">@color/accent_red</item>
-    </style>
-
-    <style name="BrownTheme" parent="AppTheme">
-        <item name="colorPrimary">@color/brown</item>
-        <item name="colorPrimaryDark">@color/dark_brown</item>
-        <item name="colorAccent">@color/accent_brown</item>
-    </style>
-
-    <style name="BrownDialogTheme" parent="BaseDialogTheme">
-        <item name="colorPrimary">@color/brown</item>
-        <item name="colorPrimaryDark">@color/dark_brown</item>
-        <item name="colorAccent">@color/accent_brown</item>
-    </style>
-
-    <style name="BlueTheme" parent="AppTheme">
-        <item name="colorPrimary">@color/blue</item>
-        <item name="colorPrimaryDark">@color/dark_blue</item>
-        <item name="colorAccent">@color/accent_blue</item>
-    </style>
-
-    <style name="BlueDialogTheme" parent="BaseDialogTheme">
-        <item name="colorPrimary">@color/blue</item>
-        <item name="colorPrimaryDark">@color/dark_blue</item>
-        <item name="colorAccent">@color/accent_blue</item>
-    </style>
-
-    <style name="BlueGreyTheme" parent="AppTheme">
-        <item name="colorPrimary">@color/blue_grey</item>
-        <item name="colorPrimaryDark">@color/dark_blue_grey</item>
-        <item name="colorAccent">@color/accent_blue_grey</item>
-    </style>
-
-    <style name="BlueGreyDialogTheme" parent="BaseDialogTheme">
-        <item name="colorPrimary">@color/blue_grey</item>
-        <item name="colorPrimaryDark">@color/dark_blue_grey</item>
-        <item name="colorAccent">@color/accent_blue_grey</item>
-    </style>
-
-    <style name="YellowTheme" parent="AppTheme">
-        <item name="colorPrimary">@color/yellow</item>
-        <item name="colorPrimaryDark">@color/dark_yellow</item>
-        <item name="colorAccent">@color/accent_yellow</item>
-    </style>
-
-    <style name="YellowDialogTheme" parent="BaseDialogTheme">
-        <item name="colorPrimary">@color/yellow</item>
-        <item name="colorPrimaryDark">@color/dark_yellow</item>
-        <item name="colorAccent">@color/accent_yellow</item>
-    </style>
-
-    <style name="DeepPurpleTheme" parent="AppTheme">
-        <item name="colorPrimary">@color/deep_purple</item>
-        <item name="colorPrimaryDark">@color/dark_deep_purple</item>
-        <item name="colorAccent">@color/accent_deep_purple</item>
-    </style>
-
-    <style name="DeepPurpleDialogTheme" parent="BaseDialogTheme">
-        <item name="colorPrimary">@color/deep_purple</item>
-        <item name="colorPrimaryDark">@color/dark_deep_purple</item>
-        <item name="colorAccent">@color/accent_deep_purple</item>
-    </style>
-
-    <style name="PinkTheme" parent="AppTheme">
-        <item name="colorPrimary">@color/pink</item>
-        <item name="colorPrimaryDark">@color/dark_pink</item>
-        <item name="colorAccent">@color/accent_pink</item>
-    </style>
-
-    <style name="PinkDialogTheme" parent="BaseDialogTheme">
-        <item name="colorPrimary">@color/pink</item>
-        <item name="colorPrimaryDark">@color/dark_pink</item>
-        <item name="colorAccent">@color/accent_pink</item>
-    </style>
-
-    <style name="GreenTheme" parent="AppTheme">
-        <item name="colorPrimary">@color/green</item>
-        <item name="colorPrimaryDark">@color/dark_green</item>
-        <item name="colorAccent">@color/accent_green</item>
-    </style>
-
-    <style name="GreenDialogTheme" parent="BaseDialogTheme">
-        <item name="colorPrimary">@color/green</item>
-        <item name="colorPrimaryDark">@color/dark_green</item>
-        <item name="colorAccent">@color/accent_green</item>
-    </style>
 
 </resources>

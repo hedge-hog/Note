@@ -24,9 +24,12 @@ public class NoteDao extends AbstractDao<Note, Long> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property Text = new Property(1, String.class, "text", false, "TEXT");
-        public final static Property Comment = new Property(2, String.class, "comment", false, "COMMENT");
-        public final static Property Date = new Property(3, java.util.Date.class, "date", false, "DATE");
+        public final static Property Content = new Property(1, String.class, "content", false, "CONTENT");
+        public final static Property Title = new Property(2, String.class, "title", false, "TITLE");
+        public final static Property Color = new Property(3, String.class, "color", false, "COLOR");
+        public final static Property Tag = new Property(4, String.class, "tag", false, "TAG");
+        public final static Property Type = new Property(5, String.class, "type", false, "TYPE");
+        public final static Property Date = new Property(6, java.util.Date.class, "date", false, "DATE");
     };
 
 
@@ -43,9 +46,12 @@ public class NoteDao extends AbstractDao<Note, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"NOTE\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"TEXT\" TEXT NOT NULL ," + // 1: text
-                "\"COMMENT\" TEXT," + // 2: comment
-                "\"DATE\" INTEGER);"); // 3: date
+                "\"CONTENT\" TEXT NOT NULL ," + // 1: content
+                "\"TITLE\" TEXT," + // 2: title
+                "\"COLOR\" TEXT," + // 3: color
+                "\"TAG\" TEXT," + // 4: tag
+                "\"TYPE\" TEXT," + // 5: type
+                "\"DATE\" INTEGER);"); // 6: date
     }
 
     /** Drops the underlying database table. */
@@ -63,16 +69,31 @@ public class NoteDao extends AbstractDao<Note, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindString(2, entity.getText());
+        stmt.bindString(2, entity.getContent());
  
-        String comment = entity.getComment();
-        if (comment != null) {
-            stmt.bindString(3, comment);
+        String title = entity.getTitle();
+        if (title != null) {
+            stmt.bindString(3, title);
+        }
+ 
+        String color = entity.getColor();
+        if (color != null) {
+            stmt.bindString(4, color);
+        }
+ 
+        String tag = entity.getTag();
+        if (tag != null) {
+            stmt.bindString(5, tag);
+        }
+ 
+        String type = entity.getType();
+        if (type != null) {
+            stmt.bindString(6, type);
         }
  
         java.util.Date date = entity.getDate();
         if (date != null) {
-            stmt.bindLong(4, date.getTime());
+            stmt.bindLong(7, date.getTime());
         }
     }
 
@@ -87,9 +108,12 @@ public class NoteDao extends AbstractDao<Note, Long> {
     public Note readEntity(Cursor cursor, int offset) {
         Note entity = new Note( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.getString(offset + 1), // text
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // comment
-            cursor.isNull(offset + 3) ? null : new java.util.Date(cursor.getLong(offset + 3)) // date
+            cursor.getString(offset + 1), // content
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // title
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // color
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // tag
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // type
+            cursor.isNull(offset + 6) ? null : new java.util.Date(cursor.getLong(offset + 6)) // date
         );
         return entity;
     }
@@ -98,9 +122,12 @@ public class NoteDao extends AbstractDao<Note, Long> {
     @Override
     public void readEntity(Cursor cursor, Note entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setText(cursor.getString(offset + 1));
-        entity.setComment(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setDate(cursor.isNull(offset + 3) ? null : new java.util.Date(cursor.getLong(offset + 3)));
+        entity.setContent(cursor.getString(offset + 1));
+        entity.setTitle(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setColor(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setTag(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setType(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setDate(cursor.isNull(offset + 6) ? null : new java.util.Date(cursor.getLong(offset + 6)));
      }
     
     /** @inheritdoc */

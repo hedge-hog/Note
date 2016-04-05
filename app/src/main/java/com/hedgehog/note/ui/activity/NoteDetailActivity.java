@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.hedgehog.note.R;
 import com.hedgehog.note.bean.Note;
 import com.hedgehog.note.dao.NoteDao;
+import com.hedgehog.note.event.NotifyEvent;
 import com.hedgehog.note.ui.BaseApplication;
 import com.hedgehog.note.ui.base.BaseActivity;
 import com.hedgehog.note.util.CustomDateFormat;
@@ -35,9 +36,12 @@ public class NoteDetailActivity extends BaseActivity {
     EditText editNoteContent;
     @Bind(R.id.text_note_time)
     TextView textNoteTime;
-    Long noteId;
-    String noteText;
-    String noteTitle;
+
+    private Long noteId;
+    private String noteText;
+    private String noteTitle;
+
+    private NotifyEvent<Note> event;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,7 @@ public class NoteDetailActivity extends BaseActivity {
 
         initToolbar("笔记详情");
         noteId = getIntent().getLongExtra("noteId", 0l);
+        event = new NotifyEvent<>();
         initView(noteId);
 
     }
@@ -57,11 +62,10 @@ public class NoteDetailActivity extends BaseActivity {
                 .build();
         List<Note> notes = query.list();
 
-
-        editNoteTitle.setText(notes.get(0).getComment());
-        editNoteContent.setText(notes.get(0).getText());
-        editNoteTitle.setSelection(notes.get(0).getComment().length());
-        editNoteContent.setSelection(notes.get(0).getText().length());
+        editNoteTitle.setText(notes.get(0).getTitle());
+        editNoteContent.setText(notes.get(0).getContent());
+        editNoteTitle.setSelection(notes.get(0).getTitle().length());
+        editNoteContent.setSelection(notes.get(0).getContent().length());
 
         editNoteContent.setOnFocusChangeListener(f);
         editNoteTitle.setOnFocusChangeListener(f);
@@ -120,16 +124,18 @@ public class NoteDetailActivity extends BaseActivity {
 
             if (!TextUtils.isEmpty(noteText) || !TextUtils.isEmpty(noteTitle)) {
 
-                Note note = new Note(noteId, noteText, noteTitle, new Date());
+                Note note = new Note(noteId, noteText, noteTitle, null, null, null, new Date());
 
                 getNoteDao().update(note);
-                EventBus.getDefault().post("update");
+                event.setType(NotifyEvent.UPDATE_NOTE);
+                EventBus.getDefault().post(event);
 
             }
 
             if (TextUtils.isEmpty(noteText) && TextUtils.isEmpty(noteTitle)) {
                 getNoteDao().deleteByKey(noteId);
-                EventBus.getDefault().post("update");
+                event.setType(NotifyEvent.UPDATE_NOTE);
+                EventBus.getDefault().post(event);
 
             }
 
@@ -138,33 +144,14 @@ public class NoteDetailActivity extends BaseActivity {
         @Override
         public void afterTextChanged(Editable s) {
 
-            noteText = editNoteContent.getText() + "";
-            noteTitle = editNoteTitle.getText() + "";
-
-            if (TextUtils.isEmpty(noteText) && TextUtils.isEmpty(noteTitle)) {
-                getNoteDao().deleteByKey(noteId);
-                EventBus.getDefault().post("update");
-            }
-
         }
     };
 
     private void deleteNote() {
         getNoteDao().deleteByKey(noteId);
-        EventBus.getDefault().post("update");
+        event.setType(NotifyEvent.DEL_NOTE);
+        EventBus.getDefault().post(event);
         finish();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        noteText = editNoteContent.getText() + "";
-        noteTitle = editNoteTitle.getText() + "";
-
-        if (TextUtils.isEmpty(noteText) && TextUtils.isEmpty(noteTitle)) {
-            getNoteDao().deleteByKey(noteId);
-            EventBus.getDefault().post("update");
-        }
-
-    }
 }

@@ -11,13 +11,13 @@
             android:layout="@layout/preference_item"
             android:title="夜间模式"
             android:key="@string/preference_darktheme"
-            android:summaryOn="暂时还没做"
-            android:summaryOff="暂时还没做"
+            android:summaryOn="点了没用,暂时还没做"
+            android:summaryOff="点了没用,暂时还没做"
             android:defaultValue="false"/>
-        <Preference
-            android:key="@string/preference_change_color"
-            android:layout="@layout/preference_item"
-            android:title="更改主题颜色"/>
+        <!--<Preference-->
+            <!--android:key="@string/preference_change_color"-->
+            <!--android:layout="@layout/preference_item"-->
+            <!--android:title="更改主题颜色"/>-->
     </PreferenceCategory>
 
     <PreferenceCategory

@@ -8,6 +8,7 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +18,10 @@ import com.hedgehog.note.adapter.BaseRecyclerviewAdapter;
 import com.hedgehog.note.adapter.NoteAdapter;
 import com.hedgehog.note.bean.Note;
 import com.hedgehog.note.dao.NoteDao;
+import com.hedgehog.note.event.NotifyEvent;
 import com.hedgehog.note.ui.BaseApplication;
+import com.hedgehog.note.ui.view.JJChangeArrowController;
+import com.hedgehog.note.ui.view.JJSearchView;
 
 import java.util.List;
 
@@ -49,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle(" ");
         setSupportActionBar(mToolbar);
+
+        JJSearchView mJJSearchView = (JJSearchView) findViewById(R.id.jjsv);
+        mJJSearchView.setController(new JJChangeArrowController());
+        mJJSearchView.startAnim();
 
         query = getNoteDao().queryBuilder()
                 .orderDesc(NoteDao.Properties.Date)
@@ -104,13 +112,17 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param event
      */
-    public void onEventMainThread(String event) {
-        if (event.equals("update")) {
-            Query query = getNoteDao().queryBuilder()
-                    .orderDesc(NoteDao.Properties.Date)
-                    .build();
-            notes = query.list();
-            noteAdapter.setList(notes);
+    public void onEventMainThread(NotifyEvent event) {
+        switch (event.getType()) {
+            case NotifyEvent.CREATE_NOTE:
+            case NotifyEvent.UPDATE_NOTE:
+            case NotifyEvent.DEL_NOTE:
+                Query query = getNoteDao().queryBuilder()
+                        .orderDesc(NoteDao.Properties.Date)
+                        .build();
+                notes = query.list();
+                noteAdapter.setList(notes);
+                break;
         }
     }
 

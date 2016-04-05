@@ -49,8 +49,8 @@ public class NoteAdapter extends BaseRecyclerviewAdapter<Note> {
         super.onBindViewHolder(holder, position);
         NoteViewHolder viewholder = (NoteViewHolder) holder;
 
-        viewholder.noteContent.setText(listNote.get(position).getText());
-        viewholder.noteTitle.setText(listNote.get(position).getComment());
+        viewholder.noteContent.setText(listNote.get(position).getContent());
+        viewholder.noteTitle.setText(listNote.get(position).getTitle());
 
 
         if (TextUtils.isEmpty(viewholder.noteTitle.getText())) {

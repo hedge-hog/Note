@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.hedgehog.note.R;
 import com.hedgehog.note.bean.Note;
 import com.hedgehog.note.dao.NoteDao;
+import com.hedgehog.note.event.NotifyEvent;
 import com.hedgehog.note.ui.BaseApplication;
 import com.hedgehog.note.ui.base.BaseActivity;
 import com.hedgehog.note.util.CustomDateFormat;
@@ -31,9 +32,11 @@ public class AddNoteActivity extends BaseActivity {
     @Bind(R.id.text_note_time)
     TextView textNoteTime;
 
-    String noteText;
-    String noteTitle;
-    Long noteId;
+    private String noteText;
+    private String noteTitle;
+    private Long noteId;
+
+    private NotifyEvent<Note> event;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +53,12 @@ public class AddNoteActivity extends BaseActivity {
             e.printStackTrace();
         }
 
+        event=new NotifyEvent<>();
+
         noteText = editAddNoteContent.getText() + "";
         noteTitle = editAddNoteTitle.getText() + "";
 
-        Note note = new Note(null, noteText, noteTitle, new Date());
+        Note note = new Note(null, noteText, noteTitle, null,null,null,new Date());
         getNoteDao().insert(note);
 
         noteId = note.getId();
@@ -83,17 +88,20 @@ public class AddNoteActivity extends BaseActivity {
 
             if (!TextUtils.isEmpty(noteText) || !TextUtils.isEmpty(noteTitle)) {
 
-                Note note = new Note(noteId, noteText, noteTitle, new Date());
+                Note note = new Note(noteId, noteText, noteTitle, null,null,null,new Date());
 
                 getNoteDao().update(note);
-                EventBus.getDefault().post("update");
+                event.setType(NotifyEvent.CREATE_NOTE);
+                EventBus.getDefault().post(event);
+
 
             }
 
 
             if (TextUtils.isEmpty(noteText) && TextUtils.isEmpty(noteTitle)) {
                 getNoteDao().deleteByKey(noteId);
-                EventBus.getDefault().post("update");
+                event.setType(NotifyEvent.DEL_NOTE);
+                EventBus.getDefault().post(event);
 
             }
 
@@ -106,18 +114,6 @@ public class AddNoteActivity extends BaseActivity {
         }
     };
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        noteText = editAddNoteContent.getText() + "";
-        noteTitle = editAddNoteTitle.getText() + "";
-
-        if (TextUtils.isEmpty(noteText) && TextUtils.isEmpty(noteTitle)) {
-            getNoteDao().deleteByKey(noteId);
-            EventBus.getDefault().post("update");
-        }
-
-    }
 
     @Override
     protected void onDestroy() {

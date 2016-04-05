@@ -8,8 +8,11 @@ public class Note {
 
     private Long id;
     /** Not-null value. */
-    private String text;
-    private String comment;
+    private String content;
+    private String title;
+    private String color;
+    private String tag;
+    private String type;
     private java.util.Date date;
 
     public Note() {
@@ -19,10 +22,13 @@ public class Note {
         this.id = id;
     }
 
-    public Note(Long id, String text, String comment, java.util.Date date) {
+    public Note(Long id, String content, String title, String color, String tag, String type, java.util.Date date) {
         this.id = id;
-        this.text = text;
-        this.comment = comment;
+        this.content = content;
+        this.title = title;
+        this.color = color;
+        this.tag = tag;
+        this.type = type;
         this.date = date;
     }
 
@@ -35,21 +41,45 @@ public class Note {
     }
 
     /** Not-null value. */
-    public String getText() {
-        return text;
+    public String getContent() {
+        return content;
     }
 
     /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setText(String text) {
-        this.text = text;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public String getComment() {
-        return comment;
+    public String getTitle() {
+        return title;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public java.util.Date getDate() {

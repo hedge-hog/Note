@@ -6,7 +6,7 @@ import de.greenrobot.daogenerator.Schema;
 
 public class GreenDaoGen {
 
-    public static final int DB_VERSION = 1;
+    public static final int DB_VERSION = 2;
 
     public static void main(String[] args) throws Exception {
 
@@ -16,8 +16,8 @@ public class GreenDaoGen {
 
 
         // 模式（Schema）同时也拥有两个默认的 flags，分别用来标示 entity 是否是 activie 以及是否使用 keep sections。
-        // schema2.enableActiveEntitiesByDefault();
-        // schema2.enableKeepSectionsByDefault();
+        // schema.enableActiveEntitiesByDefault();
+        // schema.enableKeepSectionsByDefault();
 
         addNote(schema);
 
@@ -35,8 +35,11 @@ public class GreenDaoGen {
         // greenDAO 会自动根据实体类的属性值来创建表字段，并赋予默认值
         // 接下来你便可以设置表中的字段：
         note.addIdProperty();
-        note.addStringProperty("text").notNull();
-        note.addStringProperty("comment");
+        note.addStringProperty("content").notNull();
+        note.addStringProperty("title");
+        note.addStringProperty("color");
+        note.addStringProperty("tag");
+        note.addStringProperty("type");
         note.addDateProperty("date");
     }
 

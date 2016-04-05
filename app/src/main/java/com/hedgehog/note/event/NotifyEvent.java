@@ -9,13 +9,10 @@ public class NotifyEvent<T>{
     public static final int REFRESH_LIST = 0;
     public static final int CREATE_NOTE = 1;
     public static final int UPDATE_NOTE = 2;
-    public static final int CHANGE_THEME = 3;
-    public static final int CHANGE_ITEM_LAYOUT = 4;
-    public static final int CHANGE_MENU_GRAVITY = 5;
+    public static final int DEL_NOTE = 3;
     private int type;
     private T data;
-    @IntDef({REFRESH_LIST, CREATE_NOTE, UPDATE_NOTE, CHANGE_THEME,
-            CHANGE_ITEM_LAYOUT, CHANGE_MENU_GRAVITY})
+    @IntDef({REFRESH_LIST, CREATE_NOTE, UPDATE_NOTE,DEL_NOTE})
     public @interface Type {
     }
 
