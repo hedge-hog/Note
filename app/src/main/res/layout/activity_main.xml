@@ -24,17 +24,8 @@
             android:elevation="@dimen/elevation"
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/ToolbarTheme"
-            app:layout_scrollFlags="scroll|enterAlways">
+            app:layout_scrollFlags="scroll|enterAlways"/>
 
-            <com.hedgehog.note.ui.view.JJSearchView
-                android:id="@+id/jjsv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                 />
-
-            <!--android:layout_gravity="right"-->
-
-        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 

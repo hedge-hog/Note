@@ -2,13 +2,10 @@ package com.hedgehog.note.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,8 +17,6 @@ import com.hedgehog.note.bean.Note;
 import com.hedgehog.note.dao.NoteDao;
 import com.hedgehog.note.event.NotifyEvent;
 import com.hedgehog.note.ui.BaseApplication;
-import com.hedgehog.note.ui.view.JJChangeArrowController;
-import com.hedgehog.note.ui.view.JJSearchView;
 
 import java.util.List;
 
@@ -41,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     List<Note> notes;
     Query query;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,12 +45,11 @@ public class MainActivity extends AppCompatActivity {
         EventBus.getDefault().register(MainActivity.this);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
+
         mToolbar.setTitle(" ");
         setSupportActionBar(mToolbar);
 
-        JJSearchView mJJSearchView = (JJSearchView) findViewById(R.id.jjsv);
-        mJJSearchView.setController(new JJChangeArrowController());
-        mJJSearchView.startAnim();
 
         query = getNoteDao().queryBuilder()
                 .orderDesc(NoteDao.Properties.Date)
@@ -136,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.item_menu_main, menu);
@@ -148,6 +140,9 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.item_setting:
                 startActivity(new Intent(MainActivity.this, SettingActivity.class));
+                break;
+            case R.id.menu_search:
+
                 break;
         }
 
