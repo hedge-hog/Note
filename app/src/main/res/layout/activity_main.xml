@@ -1,48 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recy_note"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bg_main_root"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recy_note"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:layout_height="match_parent"
+            android:background="@color/bg_main_root"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:elevation="@dimen/elevation"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/ToolbarTheme"
+                app:layout_scrollFlags="scroll|enterAlways" />
+
+
+        </android.support.design.widget.AppBarLayout>
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_add_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="@dimen/normal_padding"
+            android:layout_marginRight="@dimen/normal_padding"
+            android:clickable="true"
             android:elevation="@dimen/elevation"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/ToolbarTheme"
-            app:layout_scrollFlags="scroll|enterAlways"/>
+            android:src="@drawable/ic_mode_edit_white_48dp"
+            app:borderWidth="0dp"
+            app:elevation="@dimen/elevation"
+            app:layout_anchor="@id/recy_note"
+            app:layout_anchorGravity="right|bottom" />
 
 
-    </android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_add_note"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:layout_marginBottom="@dimen/normal_padding"
-        android:layout_marginRight="@dimen/normal_padding"
-        android:clickable="true"
-        android:elevation="@dimen/elevation"
-        android:src="@drawable/ic_mode_edit_white_48dp"
-        app:borderWidth="0dp"
-        app:elevation="@dimen/elevation"
-        app:layout_anchor="@id/recy_note"
-        app:layout_anchorGravity="right|bottom" />
-
-
-</android.support.design.widget.CoordinatorLayout>
+    <com.lapism.searchview.view.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</FrameLayout>

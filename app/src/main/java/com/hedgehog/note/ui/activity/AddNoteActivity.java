@@ -114,6 +114,23 @@ public class AddNoteActivity extends BaseActivity {
         }
     };
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        noteText = editAddNoteContent.getText() + "";
+        noteTitle = editAddNoteTitle.getText() + "";
+
+        if (!TextUtils.isEmpty(noteText) || !TextUtils.isEmpty(noteTitle)) {
+
+            Note note = new Note(noteId, noteText, noteTitle, null,null,null,new Date());
+
+            getNoteDao().update(note);
+            event.setType(NotifyEvent.CREATE_NOTE);
+            EventBus.getDefault().post(event);
+
+
+        }
+    }
 
     @Override
     protected void onDestroy() {

@@ -147,6 +147,23 @@ public class NoteDetailActivity extends BaseActivity {
         }
     };
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        noteText = editNoteContent.getText() + "";
+        noteTitle = editNoteTitle.getText() + "";
+
+        if (!TextUtils.isEmpty(noteText) || !TextUtils.isEmpty(noteTitle)) {
+
+            Note note = new Note(noteId, noteText, noteTitle, null, null, null, new Date());
+
+            getNoteDao().update(note);
+            event.setType(NotifyEvent.UPDATE_NOTE);
+            EventBus.getDefault().post(event);
+
+        }
+    }
+
     private void deleteNote() {
         getNoteDao().deleteByKey(noteId);
         event.setType(NotifyEvent.DEL_NOTE);
