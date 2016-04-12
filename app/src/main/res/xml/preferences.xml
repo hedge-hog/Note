@@ -9,7 +9,7 @@
 
         <CheckBoxPreference
             android:layout="@layout/preference_item"
-            android:title="夜间模式"
+            android:title="同步开关"
             android:key="@string/preference_darktheme"
             android:summaryOn="点了没用,暂时还没做"
             android:summaryOff="点了没用,暂时还没做"

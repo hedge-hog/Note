@@ -126,8 +126,7 @@ public class MainActivity extends AppCompatActivity {
         mSearchView.setDivider(false);
         mSearchView.setHint("搜索笔记");
         mSearchView.setHintSize(getResources().getDimension(R.dimen.search_text_medium));
-        mSearchView.setVoice(true);
-        mSearchView.setVoiceText("Voice");
+        mSearchView.setVoice(false);
         mSearchView.setAnimationDuration(300);
         mSearchView.setShadowColor(ContextCompat.getColor(this, R.color.search_shadow_layout));
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -142,13 +141,9 @@ public class MainActivity extends AppCompatActivity {
                             .where(NoteDao.Properties.Content.like("%" + noteText + "%"))
                             .orderAsc(NoteDao.Properties.Date)
                             .build();
-                    // 查询结果以 List 返回
                     notes = query.list();
                     noteAdapter.setList(notes);
                 }
-                // 在 QueryBuilder 类中内置两个 Flag 用于方便输出执行的 SQL 语句与传递参数的值
-                QueryBuilder.LOG_SQL = true;
-                QueryBuilder.LOG_VALUES = true;
                 return false;
             }
 
@@ -165,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSearchViewClosed() {
-                // mFab.show();
+
             }
         });
     }
@@ -225,10 +220,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showSearchView() {
-        mSuggestionsList.clear();
+//      mSuggestionsList.clear();
         mSuggestionsList.addAll(mHistoryDatabase.getAllItems());
-        mSuggestionsList.add(new SearchItem("Google"));
-        mSuggestionsList.add(new SearchItem("Android"));
         mSearchView.show(true);
     }
 
