@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">迷你日记</string>
-    <string name="title_activity_setting">迷你日记</string>
+    <string name="app_name">SimpleNote</string>
+    <string name="title_activity_setting">SimpleNote</string>
 
     <string name="app_color">更换应用主题</string>
     <string name="backup">备份笔记到本地</string>
@@ -22,6 +22,9 @@
 
 
     <string name="none">这个功能还没做呢！</string>
+    <string name="app_name_with_introduce">SimpleNote</string>
+    <string name="introduce">SimpleNote,一个轻量简单的笔记应用,让你可以随时随地记录身边点滴.\n\n该项目参考 lguipeng 的 Notes 以及 Google keep \n目前代码还在不断完善中,不过 Down is better than perfect 先写出来,再继续完善. 开源地址  https://github.com/hedge-hog/Note \n\n感谢flamingo提供的代码帮助以及kate提供的应用icon</string>
+    <string name="thanks"> com.android.support:appcompat-v7:23.2.0\ncom.android.support:cardview-v7:23.2.0\nde.greenrobot:greendao:2.1.0\ncom.jakewharton:butterknife:7.0.1\ncom.android.support:design:23.2.0\nme.imid.swipebacklayout.lib:library:1.0.0\nde.greenrobot:eventbus:2.4.0\ncom.lapism:searchview:2.1.1</string>
 
 
 

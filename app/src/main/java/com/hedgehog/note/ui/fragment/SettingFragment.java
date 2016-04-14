@@ -1,6 +1,7 @@
 package com.hedgehog.note.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -10,6 +11,7 @@ import android.text.TextUtils;
 
 import com.hedgehog.note.R;
 import com.hedgehog.note.event.NotifyEvent;
+import com.hedgehog.note.ui.activity.AboutActivity;
 import com.hedgehog.note.util.SnackbarUtils;
 
 import de.greenrobot.event.EventBus;
@@ -51,6 +53,8 @@ public class SettingFragment extends PreferenceFragment {
         }
 
         if (TextUtils.equals(key, getString(getActivity(), R.string.preference_about))) {
+
+            startActivity(new Intent(getActivity(), AboutActivity.class));
 
         }
 

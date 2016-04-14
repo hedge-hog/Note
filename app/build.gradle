@@ -1,5 +1,14 @@
 apply plugin: 'com.android.application'
 
+//获取产品的名字
+def getProductName() {
+    return "SimpleNote"
+}
+//获取当前系统的时间
+def releaseTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+}
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -8,8 +17,8 @@ android {
         applicationId "com.hedgehog.note"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 100
+        versionName "0.1.0"
     }
     buildTypes {
         release {
@@ -17,9 +26,30 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    sourceSets{
-        main{
-            java.srcDirs=['src/main/java','src/main/java-gen']
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/main/java-gen']
+        }
+    }
+    productFlavors {
+        wandoujia {}
+        yyb {}
+        umeng {}
+        fir {}
+    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
+    }
+
+//修改生成的apk名字，格式为 app名_版本号_打包时间_渠道名_release.apk
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def oldFile = output.outputFile
+            if (variant.buildType.name.equals('release')) {
+                def releaseApkName = getProductName() + "_v${defaultConfig.versionName}_${releaseTime()}_" + variant.productFlavors[0].name + '_release.apk'
+                output.outputFile = new File(oldFile.parent, releaseApkName)
+            }
         }
     }
 }

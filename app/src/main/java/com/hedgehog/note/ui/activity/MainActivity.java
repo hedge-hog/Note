@@ -134,9 +134,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String noteText) {
                 mSearchView.hide(false);
                 mHistoryDatabase.addItem(new SearchItem(noteText));
-                if (TextUtils.isEmpty(noteText)) {
-                    Toast.makeText(MainActivity.this, "请先输入文字!", Toast.LENGTH_SHORT).show();
-                } else {
+                if (!TextUtils.isEmpty(noteText)) {
                     Query query = getNoteDao().queryBuilder()
                             .where(NoteDao.Properties.Content.like("%" + noteText + "%"))
                             .orderAsc(NoteDao.Properties.Date)
@@ -209,6 +207,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.menu_search:
                 showSearchView();
+                break;
+            case R.id.item_about:
+                startActivity(new Intent(MainActivity.this, AboutActivity.class));
                 break;
         }
 

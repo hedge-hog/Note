@@ -53,12 +53,12 @@ public class AddNoteActivity extends BaseActivity {
             e.printStackTrace();
         }
 
-        event=new NotifyEvent<>();
+        event = new NotifyEvent<>();
 
         noteText = editAddNoteContent.getText() + "";
         noteTitle = editAddNoteTitle.getText() + "";
 
-        Note note = new Note(null, noteText, noteTitle, null,null,null,new Date());
+        Note note = new Note(null, noteText, noteTitle, null, null, null, new Date());
         getNoteDao().insert(note);
 
         noteId = note.getId();
@@ -82,52 +82,34 @@ public class AddNoteActivity extends BaseActivity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            noteText = editAddNoteContent.getText() + "";
-            noteTitle = editAddNoteTitle.getText() + "";
-
-            if (!TextUtils.isEmpty(noteText) || !TextUtils.isEmpty(noteTitle)) {
-
-                Note note = new Note(noteId, noteText, noteTitle, null,null,null,new Date());
-
-                getNoteDao().update(note);
-                event.setType(NotifyEvent.CREATE_NOTE);
-                EventBus.getDefault().post(event);
-
-
-            }
-
-
-            if (TextUtils.isEmpty(noteText) && TextUtils.isEmpty(noteTitle)) {
-                getNoteDao().deleteByKey(noteId);
-                event.setType(NotifyEvent.DEL_NOTE);
-                EventBus.getDefault().post(event);
-
-            }
-
-
+            addNote();
         }
 
         @Override
         public void afterTextChanged(Editable s) {
-
+            addNote();
         }
     };
 
-    @Override
-    protected void onStop() {
-        super.onStop();
+
+    private void addNote() {
         noteText = editAddNoteContent.getText() + "";
         noteTitle = editAddNoteTitle.getText() + "";
 
         if (!TextUtils.isEmpty(noteText) || !TextUtils.isEmpty(noteTitle)) {
 
-            Note note = new Note(noteId, noteText, noteTitle, null,null,null,new Date());
+            Note note = new Note(noteId, noteText, noteTitle, null, null, null, new Date());
 
             getNoteDao().update(note);
             event.setType(NotifyEvent.CREATE_NOTE);
             EventBus.getDefault().post(event);
 
+        }
+
+        if (TextUtils.isEmpty(noteText) && TextUtils.isEmpty(noteTitle)) {
+            getNoteDao().deleteByKey(noteId);
+            event.setType(NotifyEvent.DEL_NOTE);
+            EventBus.getDefault().post(event);
 
         }
     }

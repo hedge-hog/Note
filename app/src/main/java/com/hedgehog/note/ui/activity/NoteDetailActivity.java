@@ -119,37 +119,24 @@ public class NoteDetailActivity extends BaseActivity {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-            noteText = editNoteContent.getText() + "";
-            noteTitle = editNoteTitle.getText() + "";
-
-            if (!TextUtils.isEmpty(noteText) || !TextUtils.isEmpty(noteTitle)) {
-
-                Note note = new Note(noteId, noteText, noteTitle, null, null, null, new Date());
-
-                getNoteDao().update(note);
-                event.setType(NotifyEvent.UPDATE_NOTE);
-                EventBus.getDefault().post(event);
-
-            }
-
-            if (TextUtils.isEmpty(noteText) && TextUtils.isEmpty(noteTitle)) {
-                getNoteDao().deleteByKey(noteId);
-                event.setType(NotifyEvent.UPDATE_NOTE);
-                EventBus.getDefault().post(event);
-
-            }
-
+            updateNote();
         }
 
         @Override
         public void afterTextChanged(Editable s) {
-
+            updateNote();
         }
     };
 
-    @Override
-    protected void onStop() {
-        super.onStop();
+    private void deleteNote() {
+        getNoteDao().deleteByKey(noteId);
+        event.setType(NotifyEvent.DEL_NOTE);
+        EventBus.getDefault().post(event);
+        finish();
+    }
+
+
+    private void updateNote() {
         noteText = editNoteContent.getText() + "";
         noteTitle = editNoteTitle.getText() + "";
 
@@ -162,13 +149,13 @@ public class NoteDetailActivity extends BaseActivity {
             EventBus.getDefault().post(event);
 
         }
-    }
 
-    private void deleteNote() {
-        getNoteDao().deleteByKey(noteId);
-        event.setType(NotifyEvent.DEL_NOTE);
-        EventBus.getDefault().post(event);
-        finish();
+        if (TextUtils.isEmpty(noteText) && TextUtils.isEmpty(noteTitle)) {
+            getNoteDao().deleteByKey(noteId);
+            event.setType(NotifyEvent.UPDATE_NOTE);
+            EventBus.getDefault().post(event);
+
+        }
     }
 
 }

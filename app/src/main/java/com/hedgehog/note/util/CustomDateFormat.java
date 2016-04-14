@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 /**
  * Created by hedge_hog on 2015/3/12.
- *
+ * <p/>
  * 一个格式化时间的工具类
  */
 public class CustomDateFormat {
@@ -26,8 +26,7 @@ public class CustomDateFormat {
 
 
     public static String format(String dateString) throws ParseException {
-        //        2015-09-24 12:24:09
-        if(dateString.equals("")){
+        if (dateString.equals("")) {
             return "";
         }
 
@@ -88,15 +87,4 @@ public class CustomDateFormat {
         return toMonths(date) / 365L;
     }
 
-
-    public static String[] splitName(String name) {
-        Pattern p = Pattern.compile("【(.*?)】");
-        Matcher matcher = p.matcher(name);
-        if (matcher.find()) {
-            if (matcher.groupCount() == 1) {
-                return new String[]{matcher.group(0).substring(1, matcher.group(0).length()-1), name.substring(matcher.group(0).length(), name.length())};
-            }
-        }
-        return new String[]{"",name};
-    }
 }

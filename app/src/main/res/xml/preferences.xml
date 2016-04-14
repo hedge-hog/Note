@@ -1,39 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
+<?xml version="1.0" encoding="utf-8"?><!--设置页面参考drakeet大神的博客,地址:https://drakeet.me/material-design-settings-activity-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout="@layout/preference_item"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/title_activity_setting">
     <PreferenceCategory
         android:layout="@layout/preference_category_widget"
         android:title="设置">
 
         <CheckBoxPreference
-            android:layout="@layout/preference_item"
-            android:title="同步开关"
+            android:defaultValue="false"
             android:key="@string/preference_darktheme"
-            android:summaryOn="点了没用,暂时还没做"
+            android:layout="@layout/preference_item"
             android:summaryOff="点了没用,暂时还没做"
-            android:defaultValue="false"/>
+            android:summaryOn="点了没用,暂时还没做"
+            android:title="同步开关" />
         <!--<Preference-->
-            <!--android:key="@string/preference_change_color"-->
-            <!--android:layout="@layout/preference_item"-->
-            <!--android:title="更改主题颜色"/>-->
+        <!--android:key="@string/preference_change_color"-->
+        <!--android:layout="@layout/preference_item"-->
+        <!--android:title="更改主题颜色"/>-->
+
     </PreferenceCategory>
 
     <PreferenceCategory
         android:layout="@layout/preference_category_widget"
         android:title="其他">
         <Preference
-            android:layout="@layout/preference_item"
             android:key="@string/preference_feedback"
-            android:title="意见反馈"/>
-        <Preference
             android:layout="@layout/preference_item"
+            android:title="意见反馈" />
+        <Preference
             android:key="@string/preference_rating_app"
-            android:title="给应用评分"/>
-        <Preference
             android:layout="@layout/preference_item"
+            android:title="给应用评分" />
+        <Preference
             android:key="@string/preference_about"
-            android:title="关于"/>
+            android:layout="@layout/preference_item"
+            android:title="关于" />
     </PreferenceCategory>
 </PreferenceScreen>
