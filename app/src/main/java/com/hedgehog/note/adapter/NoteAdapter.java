@@ -3,6 +3,7 @@ package com.hedgehog.note.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +28,9 @@ import butterknife.ButterKnife;
 public class NoteAdapter extends BaseRecyclerviewAdapter<Note> {
 
     private Context mContext;
-    private List<Note> listNote;
+    private ArrayList<Note> listNote;
 
-    public NoteAdapter(Context mContext, List<Note> list) {
+    public NoteAdapter(Context mContext, ArrayList<Note> list) {
         super(mContext, list);
         this.mContext = mContext;
         this.listNote = list;
@@ -68,19 +69,12 @@ public class NoteAdapter extends BaseRecyclerviewAdapter<Note> {
     }
 
     @Override
-    public void setList(List<Note> list) {
-//        super.setList(list);
-//        this.listNote.clear();
-//        this.listNote.addAll(list);
-//        notifyDataSetChanged();
-
-        this.listNote.clear();
-
-//        this.list.addAll(list);
-        if(this.listNote==null|| this.listNote.size()==0) {
+    public void setList(ArrayList<Note> list) {
+        super.setList(list);
+        if (this.listNote == null || this.listNote.size() == 0) {
             this.listNote = new ArrayList<>(list);
             notifyDataSetChanged();
-        }else{
+        } else {
             this.listNote.addAll(list);
             notifyDataSetChanged();
         }

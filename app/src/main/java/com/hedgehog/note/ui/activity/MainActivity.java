@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
     NoteAdapter noteAdapter;
-    List<Note> notes;
+    ArrayList<Note> notes;
     Query query;
 
     private SearchHistoryTable mHistoryDatabase;
@@ -72,14 +72,10 @@ public class MainActivity extends AppCompatActivity {
         query = getNoteDao().queryBuilder()
                 .orderDesc(NoteDao.Properties.Date)
                 .build();
-        notes = query.list();
 
-        noteAdapter = new NoteAdapter(MainActivity.this, notes);
+        if (query.list().size() != 0) {
 
-        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        recyclerNote.setLayoutManager(staggeredGridLayoutManager);
-        recyclerNote.setAdapter(noteAdapter);
-
+            initAdapter();
 //      暂时没用了
 //        noteAdapter.setOnInViewClickListener(R.id.note_more,
 //                new BaseRecyclerviewAdapter.onInternalClickListenerImpl<Note>() {
@@ -105,19 +101,7 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //                });
 
-
-        noteAdapter.setOnInViewClickListener(R.id.note_content_ll, new BaseRecyclerviewAdapter.onInternalClickListenerImpl<Note>() {
-            @Override
-            public void OnClickListener(View parentV, View v, Integer position, Note values) {
-                super.OnClickListener(parentV, v, position, values);
-                Long id = notes.get(position).getId();
-                Intent i = new Intent(MainActivity.this, NoteDetailActivity.class);
-                i.putExtra("noteId", id);
-                startActivity(i);
-            }
-        });
-
-
+        }
         mHistoryDatabase = new SearchHistoryTable(this);
         mSuggestionsList = new ArrayList<>();
 
@@ -140,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                             .where(NoteDao.Properties.Content.like("%" + noteText + "%"))
                             .orderAsc(NoteDao.Properties.Date)
                             .build();
-                    notes = query.list();
+                    notes = (ArrayList) query.list();
                     noteAdapter.setList(notes);
                 }
                 return false;
@@ -164,6 +148,25 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void initAdapter() {
+        notes = (ArrayList) query.list();
+        noteAdapter = new NoteAdapter(MainActivity.this, notes);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        recyclerNote.setLayoutManager(staggeredGridLayoutManager);
+        recyclerNote.setAdapter(noteAdapter);
+
+        noteAdapter.setOnInViewClickListener(R.id.note_content_ll, new BaseRecyclerviewAdapter.onInternalClickListenerImpl<Note>() {
+            @Override
+            public void OnClickListener(View parentV, View v, Integer position, Note values) {
+                super.OnClickListener(parentV, v, position, values);
+                Long id = notes.get(position).getId();
+                Intent i = new Intent(MainActivity.this, NoteDetailActivity.class);
+                i.putExtra("noteId", id);
+                startActivity(i);
+            }
+        });
+    }
+
 
     /**
      * @param event
@@ -176,9 +179,14 @@ public class MainActivity extends AppCompatActivity {
                 Query query = getNoteDao().queryBuilder()
                         .orderDesc(NoteDao.Properties.Date)
                         .build();
-                notes = query.list();
-                Log.e("==",notes.size()+"");
-                noteAdapter.setList(notes);
+                notes = (ArrayList) query.list();
+                if (noteAdapter == null) {
+                    initAdapter();
+                    noteAdapter.setList(notes);
+                } else {
+                    noteAdapter.setList(notes);
+                }
+
                 break;
         }
     }

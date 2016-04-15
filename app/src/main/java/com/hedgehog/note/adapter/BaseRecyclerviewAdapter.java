@@ -17,14 +17,14 @@ public class BaseRecyclerviewAdapter<E> extends RecyclerView.Adapter<RecyclerVie
 
 
     private Context mContext;
-    private List<E> list;
+    private ArrayList<E> list;
     private Map<Integer, onInternalClickListener<E>> canClickItem;
 
-    public BaseRecyclerviewAdapter(List<E> list) {
+    public BaseRecyclerviewAdapter(ArrayList<E> list) {
         this.list = list;
     }
 
-    public BaseRecyclerviewAdapter(Context mContext,List<E> list) {
+    public BaseRecyclerviewAdapter(Context mContext,ArrayList<E> list) {
         this.list = list;
         this.mContext = mContext;
     }
@@ -75,19 +75,11 @@ public class BaseRecyclerviewAdapter<E> extends RecyclerView.Adapter<RecyclerVie
         notifyItemRemoved(position);
     }
 
-    public void setList(List<E> list) {
-//        this.list.clear();
-
-//        this.list.addAll(list);
-//        if(this.list==null|| this.list.size()==0) {
-//            this.list = new ArrayList<>(list);
-//        }else{
-//            this.list.addAll(list);
-//        }
-
+    public void setList(ArrayList<E> list) {
+        this.list.clear();
     }
 
-    public List<E> getList() {
+    public ArrayList<E> getList() {
         return list;
     }
 
