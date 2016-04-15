@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,8 +76,15 @@ public class BaseRecyclerviewAdapter<E> extends RecyclerView.Adapter<RecyclerVie
     }
 
     public void setList(List<E> list) {
-        this.list.clear();
-        this.list.addAll(list);
+//        this.list.clear();
+
+//        this.list.addAll(list);
+//        if(this.list==null|| this.list.size()==0) {
+//            this.list = new ArrayList<>(list);
+//        }else{
+//            this.list.addAll(list);
+//        }
+
     }
 
     public List<E> getList() {

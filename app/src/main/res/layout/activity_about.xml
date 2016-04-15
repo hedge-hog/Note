@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/bg_main_root"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_main_root">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -69,15 +69,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:text="介绍"
-                android:textColor="@color/text_second_color_primary"/>
+                android:textColor="@color/text_second_color_primary" />
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -92,17 +92,17 @@
                     android:text="@string/introduce"
                     android:textColor="@color/text_second_color_primary"
                     android:textIsSelectable="true"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
             </android.support.v7.widget.CardView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
+                android:layout_marginTop="12dp"
                 android:text="开发人员"
-                android:textColor="@color/text_second_color_primary"/>
+                android:textColor="@color/text_second_color_primary" />
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -112,24 +112,24 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="6dp"
-                    android:gravity="center_vertical"
                     android:drawableLeft="@drawable/ic_hedgehog_head"
                     android:drawablePadding="16dp"
+                    android:gravity="center_vertical"
+                    android:padding="6dp"
                     android:text="Android 开发 hedge_hog"
                     android:textColor="@color/text_second_color_primary"
                     android:textIsSelectable="true"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
             </android.support.v7.widget.CardView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
-                android:text="感谢以下开源库"
-                android:textColor="@color/text_second_color_primary"/>
+                android:layout_marginTop="12dp"
+                android:text="感谢以下开发者"
+                android:textColor="@color/text_second_color_primary" />
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -139,12 +139,38 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
+                    android:autoLink="web"
                     android:gravity="center_vertical"
+                    android:padding="16dp"
+                    android:text="@string/specialthanks"
+                    android:textColor="@color/text_second_color_primary"
+                    android:textIsSelectable="true"
+                    android:textSize="14sp" />
+
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="12dp"
+                android:text="感谢以下开源库"
+                android:textColor="@color/text_second_color_primary" />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="16dp"
                     android:text="@string/thanks"
                     android:textColor="@color/text_second_color_primary"
                     android:textIsSelectable="true"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
             </android.support.v7.widget.CardView>
 

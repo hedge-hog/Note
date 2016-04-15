@@ -1,7 +1,10 @@
 package com.hedgehog.note.ui;
 
 import android.app.Application;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.hedgehog.note.dao.DaoMaster;
 import com.hedgehog.note.dao.DaoSession;
@@ -15,6 +18,7 @@ public class BaseApplication extends Application {
     public SQLiteDatabase db;
     public DaoMaster.DevOpenHelper helper;
     public DaoMaster daoMaster;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -41,4 +45,5 @@ public class BaseApplication extends Application {
     public SQLiteDatabase getDb() {
         return db;
     }
+
 }

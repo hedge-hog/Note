@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -165,8 +166,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     * Eventbus的通知
-     *
      * @param event
      */
     public void onEventMainThread(NotifyEvent event) {
@@ -178,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
                         .orderDesc(NoteDao.Properties.Date)
                         .build();
                 notes = query.list();
+                Log.e("==",notes.size()+"");
                 noteAdapter.setList(notes);
                 break;
         }
@@ -221,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showSearchView() {
-//      mSuggestionsList.clear();
+        mSuggestionsList.clear();
         mSuggestionsList.addAll(mHistoryDatabase.getAllItems());
         mSearchView.show(true);
     }

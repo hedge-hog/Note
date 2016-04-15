@@ -1,7 +1,11 @@
 package com.hedgehog.note.ui.fragment;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -11,8 +15,11 @@ import android.text.TextUtils;
 
 import com.hedgehog.note.R;
 import com.hedgehog.note.event.NotifyEvent;
+import com.hedgehog.note.ui.BaseApplication;
 import com.hedgehog.note.ui.activity.AboutActivity;
 import com.hedgehog.note.util.SnackbarUtils;
+
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
@@ -46,10 +53,30 @@ public class SettingFragment extends PreferenceFragment {
 
         if (TextUtils.equals(key, getString(getActivity(), R.string.preference_feedback))) {
 
+            Uri uri = Uri.parse("mailto:ciwei@gmail.com");
+            final Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+            PackageManager pm = getActivity().getPackageManager();
+            List<ResolveInfo> infos = pm.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+            if (infos == null || infos.size() <= 0) {
+                SnackbarUtils.show(getActivity(), R.string.email_notice);
+
+            } else {
+                getActivity().startActivity(intent);
+            }
+
         }
 
         if (TextUtils.equals(key, getString(getActivity(), R.string.preference_rating_app))) {
 
+            String str = "market://details?id=" + getActivity().getPackageName();
+            Intent localIntent = new Intent("android.intent.action.VIEW");
+            localIntent.setData(Uri.parse(str));
+            try {
+                startActivity(localIntent);
+            } catch (ActivityNotFoundException e) {
+                e.printStackTrace();
+                SnackbarUtils.show(getActivity(), R.string.rating_notice);
+            }
         }
 
         if (TextUtils.equals(key, getString(getActivity(), R.string.preference_about))) {

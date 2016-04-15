@@ -69,10 +69,21 @@ public class NoteAdapter extends BaseRecyclerviewAdapter<Note> {
 
     @Override
     public void setList(List<Note> list) {
-        super.setList(list);
+//        super.setList(list);
+//        this.listNote.clear();
+//        this.listNote.addAll(list);
+//        notifyDataSetChanged();
+
         this.listNote.clear();
-        this.listNote.addAll(list);
-        notifyDataSetChanged();
+
+//        this.list.addAll(list);
+        if(this.listNote==null|| this.listNote.size()==0) {
+            this.listNote = new ArrayList<>(list);
+            notifyDataSetChanged();
+        }else{
+            this.listNote.addAll(list);
+            notifyDataSetChanged();
+        }
     }
 
 

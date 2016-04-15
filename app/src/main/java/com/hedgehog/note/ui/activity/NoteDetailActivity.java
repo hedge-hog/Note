@@ -118,13 +118,12 @@ public class NoteDetailActivity extends BaseActivity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             updateNote();
         }
 
         @Override
         public void afterTextChanged(Editable s) {
-            updateNote();
+
         }
     };
 
@@ -137,25 +136,23 @@ public class NoteDetailActivity extends BaseActivity {
 
 
     private void updateNote() {
-        noteText = editNoteContent.getText() + "";
-        noteTitle = editNoteTitle.getText() + "";
-
-        if (!TextUtils.isEmpty(noteText) || !TextUtils.isEmpty(noteTitle)) {
-
-            Note note = new Note(noteId, noteText, noteTitle, null, null, null, new Date());
-
-            getNoteDao().update(note);
-            event.setType(NotifyEvent.UPDATE_NOTE);
-            EventBus.getDefault().post(event);
-
-        }
-
-        if (TextUtils.isEmpty(noteText) && TextUtils.isEmpty(noteTitle)) {
-            getNoteDao().deleteByKey(noteId);
-            event.setType(NotifyEvent.UPDATE_NOTE);
-            EventBus.getDefault().post(event);
-
-        }
+        noteText = editNoteContent.getText().toString();
+        noteTitle = editNoteTitle.getText().toString();
+        Note note = new Note(noteId, noteText, noteTitle, null, null, null, new Date());
+        getNoteDao().update(note);
+        event.setType(NotifyEvent.UPDATE_NOTE);
+        EventBus.getDefault().post(event);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        noteText = editNoteContent.getText().toString();
+        noteTitle = editNoteTitle.getText().toString();
+        if (TextUtils.isEmpty(noteText) && TextUtils.isEmpty(noteTitle)) {
+            getNoteDao().deleteByKey(noteId);
+            event.setType(NotifyEvent.DEL_NOTE);
+            EventBus.getDefault().post(event);
+        }
+    }
 }
