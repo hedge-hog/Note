@@ -8,6 +8,9 @@ import android.net.NetworkInfo;
 
 import com.hedgehog.note.dao.DaoMaster;
 import com.hedgehog.note.dao.DaoSession;
+import com.orhanobut.logger.AndroidLogTool;
+import com.orhanobut.logger.LogLevel;
+import com.orhanobut.logger.Logger;
 
 /**
  * Created by hedge_hog on 16/2/27.
@@ -24,7 +27,15 @@ public class BaseApplication extends Application {
         super.onCreate();
         setupDatabase();
 
+        Logger.init("SimpleNote")               // default PRETTYLOGGER or use just init()
+                .methodCount(1)                 // default 2
+                //.hideThreadInfo()               // default shown
+                //.logLevel(LogLevel.NONE)        // default LogLevel.FULL
+                .logLevel(LogLevel.FULL)
+                .methodOffset(5)                // default 0
+                .logTool(new AndroidLogTool()); // custom log tool, optional
     }
+
 
     private void setupDatabase() {
         // 通过 DaoMaster 的内部类 DevOpenHelper，你可以得到一个便利的 SQLiteOpenHelper 对象。

@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,14 +16,14 @@ public class BaseRecyclerviewAdapter<E> extends RecyclerView.Adapter<RecyclerVie
 
 
     private Context mContext;
-    private ArrayList<E> list;
+    private List<E> list;
     private Map<Integer, onInternalClickListener<E>> canClickItem;
 
-    public BaseRecyclerviewAdapter(ArrayList<E> list) {
+    public BaseRecyclerviewAdapter(List<E> list) {
         this.list = list;
     }
 
-    public BaseRecyclerviewAdapter(Context mContext,ArrayList<E> list) {
+    public BaseRecyclerviewAdapter(Context mContext,List<E> list) {
         this.list = list;
         this.mContext = mContext;
     }
@@ -38,7 +37,6 @@ public class BaseRecyclerviewAdapter<E> extends RecyclerView.Adapter<RecyclerVie
     }
 
     /**
-     * 更新视图
      *
      * @param e
      * @param fromPosition
@@ -75,15 +73,13 @@ public class BaseRecyclerviewAdapter<E> extends RecyclerView.Adapter<RecyclerVie
         notifyItemRemoved(position);
     }
 
-    public void setList(ArrayList<E> list) {
+    public void setList(List<E> list) {
         this.list.clear();
     }
 
-    public ArrayList<E> getList() {
+    public List<E> getList() {
         return list;
     }
-
-
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -144,7 +140,6 @@ public class BaseRecyclerviewAdapter<E> extends RecyclerView.Adapter<RecyclerVie
 
 
     /**
-     * 点击长点击的接口
      *
      * @param <T>
      */

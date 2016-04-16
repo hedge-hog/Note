@@ -65,4 +65,5 @@ dependencies {
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'com.lapism:searchview:2.1.1'
+    compile 'com.github.orhanobut:logger:1.12'
 }

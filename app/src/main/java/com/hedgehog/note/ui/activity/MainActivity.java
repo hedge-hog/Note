@@ -25,6 +25,7 @@ import com.lapism.searchview.adapter.SearchItem;
 import com.lapism.searchview.history.SearchHistoryTable;
 import com.lapism.searchview.view.SearchCodes;
 import com.lapism.searchview.view.SearchView;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
         mToolbar.setTitle(" ");
         setSupportActionBar(mToolbar);
-
 
         query = getNoteDao().queryBuilder()
                 .orderDesc(NoteDao.Properties.Date)
@@ -138,17 +138,18 @@ public class MainActivity extends AppCompatActivity {
         mSearchView.setOnSearchViewListener(new SearchView.SearchViewListener() {
             @Override
             public void onSearchViewShown() {
-                // mFab.hide();
+                Logger.e("onSearchViewShown");
             }
 
             @Override
             public void onSearchViewClosed() {
-
+                Logger.e("onSearchViewClosed");
             }
         });
     }
 
     private void initAdapter() {
+
         notes = (ArrayList) query.list();
         noteAdapter = new NoteAdapter(MainActivity.this, notes);
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
@@ -179,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
                 Query query = getNoteDao().queryBuilder()
                         .orderDesc(NoteDao.Properties.Date)
                         .build();
+
                 notes = (ArrayList) query.list();
                 if (noteAdapter == null) {
                     initAdapter();
