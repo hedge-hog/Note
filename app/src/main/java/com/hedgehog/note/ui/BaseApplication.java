@@ -1,10 +1,7 @@
 package com.hedgehog.note.ui;
 
 import android.app.Application;
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 
 import com.hedgehog.note.dao.DaoMaster;
 import com.hedgehog.note.dao.DaoSession;
