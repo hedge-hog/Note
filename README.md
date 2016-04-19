@@ -6,10 +6,10 @@
 #应用截图
 
 
-<img src="./app/src/screenshot/scrn_4.png" width="50%" height="50%">
-<img src="./app/src/screenshot/scrn_6.png" width="50%" height="50%">
-<img src="./app/src/screenshot/scrn_2.png" width="50%" height="50%">
-<img src="./app/src/screenshot/scrn_3.png" width="50%" height="50%">
+<img src="./app/src/screenshot/scrn_4.png" width="40%" height="50%">
+<img src="./app/src/screenshot/scrn_6.png" width="40%" height="50%">
+<img src="./app/src/screenshot/scrn_2.png" width="40%" height="50%">
+<img src="./app/src/screenshot/scrn_3.png" width="40%" height="50%">
 
 
 
