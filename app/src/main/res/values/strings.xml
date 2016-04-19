@@ -13,6 +13,7 @@
     <string name="preference_change_color">preference_change_color</string>
     <string name="preference_feedback">preference_feedback</string>
     <string name="preference_rating_app">preference_rating_app</string>
+    <string name="preference_share_app">preference_share_app</string>
     <string name="preference_about">preference_about</string>
 
 
@@ -22,6 +23,7 @@
     <string name="net_notice">请先打开网络</string>
     <string name="email_notice">对不起,您没有安装邮件类app</string>
 
+    <string name="delete_notice">确定删除吗?</string>
 
     <string name="none">这个功能还没做呢！</string>
     <string name="specialthanks">lguipeng 的 Notes 开源地址 https://github.com/lguipeng/Notes\n\ndrakeet 的 Meizhi 开源地址 https://github.com/drakeet/Meizhi</string>
@@ -30,5 +32,8 @@
     <string name="thanks"> com.android.support:appcompat-v7:23.2.0\ncom.android.support:cardview-v7:23.2.0\nde.greenrobot:greendao:2.1.0\ncom.jakewharton:butterknife:7.0.1\ncom.android.support:design:23.2.0\nme.imid.swipebacklayout.lib:library:1.0.0\nde.greenrobot:eventbus:2.4.0\ncom.lapism:searchview:2.1.1</string>
 
 
+    <string name="share">分享给朋友O(∩_∩)O~</string>
+    <string name="action_share">分享</string>
+    <string name="share_text">发现了一个很精致的便签应用,你试试看,这是下载地址：http://fir.im/simplenote </string>
 
 </resources>
