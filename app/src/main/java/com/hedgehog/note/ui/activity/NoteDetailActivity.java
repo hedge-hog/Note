@@ -1,6 +1,8 @@
 package com.hedgehog.note.ui.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -96,7 +98,21 @@ public class NoteDetailActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_delete_note:
-                deleteNote();
+                AlertDialog.Builder dialog = new AlertDialog.Builder(NoteDetailActivity.this, R.style.MyAlertDialogStyle);
+                dialog.setTitle(getResources().getString(R.string.delete_notice));
+                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteNote();
+                    }
+                });
+                dialog.show();
                 break;
         }
         return super.onOptionsItemSelected(item);

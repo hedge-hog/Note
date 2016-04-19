@@ -42,5 +42,15 @@
         <item name="android:windowExitAnimation">@anim/abc_fade_out</item>
     </style>
 
+    <!--AlertDialog的样式-->
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">@color/text_second_color_primary</item>
+        <!-- Used for the background -->
+        <item name="android:background">#ffffff</item>
+    </style>
+
 
 </resources>

@@ -38,6 +38,8 @@
                 android:background="@android:color/transparent"
                 android:hint="内容"
                 android:padding="@dimen/normal_padding"
+                android:minHeight="150dp"
+                android:gravity="top"
                 android:textColor="@color/text_color_primary"
                 android:textSize="@dimen/text_content" />
 

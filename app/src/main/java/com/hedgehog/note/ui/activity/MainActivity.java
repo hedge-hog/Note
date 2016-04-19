@@ -8,11 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.hedgehog.note.R;
 import com.hedgehog.note.adapter.BaseRecyclerviewAdapter;
@@ -21,6 +20,7 @@ import com.hedgehog.note.bean.Note;
 import com.hedgehog.note.dao.NoteDao;
 import com.hedgehog.note.event.NotifyEvent;
 import com.hedgehog.note.ui.BaseApplication;
+import com.lapism.searchview.adapter.SearchAdapter;
 import com.lapism.searchview.adapter.SearchItem;
 import com.lapism.searchview.history.SearchHistoryTable;
 import com.lapism.searchview.view.SearchCodes;
@@ -34,7 +34,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.dao.query.Query;
-import de.greenrobot.dao.query.QueryBuilder;
 import de.greenrobot.event.EventBus;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,10 +42,12 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerNote;
     @Bind(R.id.searchView)
     SearchView mSearchView;
+    @Bind(R.id.text_none)
+    TextView textNone;
 
     private Toolbar mToolbar;
     NoteAdapter noteAdapter;
-    ArrayList<Note> notes;
+    List<Note> notes;
     Query query;
 
     private SearchHistoryTable mHistoryDatabase;
@@ -74,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         if (query.list().size() != 0) {
-
             initAdapter();
 //      暂时没用了
 //        noteAdapter.setOnInViewClickListener(R.id.note_more,
@@ -101,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //                });
 
+        }else{
+            textNone.setVisibility(View.VISIBLE);
         }
         mHistoryDatabase = new SearchHistoryTable(this);
         mSuggestionsList = new ArrayList<>();
@@ -120,13 +122,21 @@ public class MainActivity extends AppCompatActivity {
                 mSearchView.hide(false);
                 mHistoryDatabase.addItem(new SearchItem(noteText));
                 if (!TextUtils.isEmpty(noteText)) {
-                    Query query = getNoteDao().queryBuilder()
-                            .where(NoteDao.Properties.Content.like("%" + noteText + "%"))
-                            .orderAsc(NoteDao.Properties.Date)
-                            .build();
-                    notes = (ArrayList) query.list();
-                    noteAdapter.setList(notes);
+//                    Query query = getNoteDao().queryBuilder()
+//                            .where(NoteDao.Properties.Content.like("%" + noteText + "%"))
+//                            .orderAsc(NoteDao.Properties.Date)
+//                            .build();
+//                    notes = query.list();
+//                    noteAdapter.setList(notes);
+
+
+                    Intent i=new Intent(MainActivity.this,SearchActivity.class);
+
+                    i.putExtra("noteText",noteText);
+
+                    startActivity(i);
                 }
+
                 return false;
             }
 
@@ -146,10 +156,28 @@ public class MainActivity extends AppCompatActivity {
                 Logger.e("onSearchViewClosed");
             }
         });
+
+//      设置历史搜索部分
+        List<SearchItem> mResultsList = new ArrayList<>();
+        SearchAdapter mSearchAdapter = new SearchAdapter(this, mResultsList, mSuggestionsList, mTheme);
+        mSearchAdapter.setOnItemClickListener(new SearchAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                TextView textView = (TextView) view.findViewById(R.id.textView_item_text);
+                CharSequence text = textView.getText();
+                mHistoryDatabase.addItem(new SearchItem(text));
+
+                Intent i=new Intent(MainActivity.this,SearchActivity.class);
+                i.putExtra("noteText",String.valueOf(text));
+                startActivity(i);
+                mSearchView.hide(true);
+            }
+        });
+
+        mSearchView.setAdapter(mSearchAdapter);
     }
 
     private void initAdapter() {
-
         notes = (ArrayList) query.list();
         noteAdapter = new NoteAdapter(MainActivity.this, notes);
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
@@ -173,26 +201,32 @@ public class MainActivity extends AppCompatActivity {
      * @param event
      */
     public void onEventMainThread(NotifyEvent event) {
+        Query query = getNoteDao().queryBuilder()
+                .orderDesc(NoteDao.Properties.Date)
+                .build();
+        notes = query.list();
         switch (event.getType()) {
             case NotifyEvent.CREATE_NOTE:
             case NotifyEvent.UPDATE_NOTE:
             case NotifyEvent.DEL_NOTE:
-                Query query = getNoteDao().queryBuilder()
-                        .orderDesc(NoteDao.Properties.Date)
-                        .build();
 
-                notes = (ArrayList) query.list();
-                if (noteAdapter == null) {
-                    initAdapter();
+                if(notes.size()==0){
+                    textNone.setVisibility(View.VISIBLE);
                     noteAdapter.setList(notes);
-                } else {
-                    noteAdapter.setList(notes);
+                }else{
+                    textNone.setVisibility(View.GONE);
+                    if (noteAdapter == null) {
+                        initAdapter();
+                        noteAdapter.setList(notes);
+                    } else {
+                        noteAdapter.setList(notes);
+                    }
                 }
-
                 break;
+
+
         }
     }
-
 
     @OnClick(R.id.fab_add_note)
     protected void addNote(View v) {

@@ -32,6 +32,10 @@
             android:layout="@layout/preference_item"
             android:title="给应用评分" />
         <Preference
+            android:key="@string/preference_share_app"
+            android:layout="@layout/preference_item"
+            android:title="分享给朋友" />
+        <Preference
             android:key="@string/preference_about"
             android:layout="@layout/preference_item"
             android:title="关于" />

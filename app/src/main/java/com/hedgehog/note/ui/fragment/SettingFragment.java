@@ -14,14 +14,11 @@ import android.support.annotation.StringRes;
 import android.text.TextUtils;
 
 import com.hedgehog.note.R;
-import com.hedgehog.note.event.NotifyEvent;
-import com.hedgehog.note.ui.BaseApplication;
 import com.hedgehog.note.ui.activity.AboutActivity;
+import com.hedgehog.note.util.ShareUtils;
 import com.hedgehog.note.util.SnackbarUtils;
 
 import java.util.List;
-
-import de.greenrobot.event.EventBus;
 
 /**
  * Created by hedge_hog on 16/3/24.
@@ -77,6 +74,10 @@ public class SettingFragment extends PreferenceFragment {
                 e.printStackTrace();
                 SnackbarUtils.show(getActivity(), R.string.rating_notice);
             }
+        }
+
+        if (TextUtils.equals(key, getString(getActivity(), R.string.preference_share_app))) {
+            ShareUtils.share(getActivity());
         }
 
         if (TextUtils.equals(key, getString(getActivity(), R.string.preference_about))) {
