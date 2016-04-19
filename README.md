@@ -41,7 +41,7 @@
 - 感谢[lguipeng](https://github.com/lguipeng)的[Notes](https://github.com/lguipeng/Notes),感谢他的开源项目，帮助了我很多，而且做了很多我想做却没有做的，真的非常感谢
 - 感谢[drakeet](https://github.com/drakeet)，一个非常非常优秀的Android开发者
 - 感谢[fflamingogo](https://github.com/fflamingogo)和[Simon](https://github.com/SimonWuQM)的帮助
-- 感谢kate给我做的应用logo，一个很厉害的设计妹纸
+- 感谢[kate](http://reitou.lofter.com/)给我做的应用logo，一个很厉害的设计妹纸
 
 
 #关于我
