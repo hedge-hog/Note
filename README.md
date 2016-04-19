@@ -26,7 +26,6 @@
 - 第一版比较糙，只实现了重要的功能，不过 [Done is better than perfect](http://www.ruanyifeng.com/blog/2012/02/facebook_slogans.html)
 
 #TODO
-- [x] ~~FAB隐藏的动画~~
 - [ ] 回收站
 - [ ] 每一个卡片可以让用户选择颜色
 - [ ] 字体还是不够美观
