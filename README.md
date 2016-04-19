@@ -1,19 +1,20 @@
 # SimpleNote
 一个轻量简单的笔记应用，让你可以随时随地，记录身边点滴。
 
-
-#Screenshot
-
-<img src="./app/src/screenshot/scrn_5.png" width="30%" height="30%">
-<img src="./app/src/screenshot/scrn_4.png" width="30%" height="30%">
-<img src="./app/src/screenshot/scrn_6.png" width="30%" height="30%">
-<img src="./app/src/screenshot/scrn_2.png" width="30%" height="30%">
-<img src="./app/src/screenshot/scrn_3.png" width="30%" height="30%">
-<img src="./app/src/screenshot/scrn_1.png" width="30%" height="30%">
-
 **应用地址:** [APK](http://fir.im/simplenote)
 
-#Develop Environment
+#应用截图
+
+
+<img src="./app/src/screenshot/scrn_4.png" width="50%" height="50%">
+<img src="./app/src/screenshot/scrn_6.png" width="50%" height="50%">
+<img src="./app/src/screenshot/scrn_2.png" width="50%" height="50%">
+<img src="./app/src/screenshot/scrn_3.png" width="50%" height="50%">
+
+
+
+
+#开发环境
 - Android Studio 2.0
 - JDK 1.8
 - Android Buid Tool 23
