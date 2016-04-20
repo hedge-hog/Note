@@ -21,7 +21,7 @@
 - Android Compile Sdk 23
 
 
-#1.0.0(beta)
+#0.1.0(beta)
 - Android 应用当然要用 Material Design风格
 - 仅支持 Android4.4 及以上的系统
 - 第一版比较糙，只实现了重要的功能，不过 [Done is better than perfect](http://www.ruanyifeng.com/blog/2012/02/facebook_slogans.html)
