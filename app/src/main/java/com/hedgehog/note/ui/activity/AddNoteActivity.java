@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -19,7 +18,6 @@ import com.hedgehog.note.util.CustomDateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Logger;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,6 +37,7 @@ public class AddNoteActivity extends BaseActivity {
     private Long noteId;
 
     private NotifyEvent<Note> event;
+    Note note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +56,7 @@ public class AddNoteActivity extends BaseActivity {
 
         event = new NotifyEvent<>();
 
-        Note note = new Note(null, "", "", null, null, null, new Date());
+        note= new Note(null, "", "", null, null, null, new Date());
         getNoteDao().insert(note);
         noteId = note.getId();
 
@@ -82,7 +81,6 @@ public class AddNoteActivity extends BaseActivity {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             noteText = editAddNoteContent.getText().toString();
             noteTitle = editAddNoteTitle.getText().toString();
-
             addNote();
         }
 
@@ -96,7 +94,9 @@ public class AddNoteActivity extends BaseActivity {
     private void addNote() {
 
         if (!TextUtils.isEmpty(noteText) || !TextUtils.isEmpty(noteTitle)) {
-            Note note = new Note(noteId, noteText, noteTitle, null, null, null, new Date());
+            note.setId(noteId);
+            note.setContent(noteText);
+            note.setTitle(noteTitle);
             getNoteDao().update(note);
             event.setType(NotifyEvent.CREATE_NOTE);
             EventBus.getDefault().post(event);

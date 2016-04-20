@@ -25,7 +25,6 @@ import com.lapism.searchview.adapter.SearchItem;
 import com.lapism.searchview.history.SearchHistoryTable;
 import com.lapism.searchview.view.SearchCodes;
 import com.lapism.searchview.view.SearchView;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,13 +121,6 @@ public class MainActivity extends AppCompatActivity {
                 mSearchView.hide(false);
                 mHistoryDatabase.addItem(new SearchItem(noteText));
                 if (!TextUtils.isEmpty(noteText)) {
-//                    Query query = getNoteDao().queryBuilder()
-//                            .where(NoteDao.Properties.Content.like("%" + noteText + "%"))
-//                            .orderAsc(NoteDao.Properties.Date)
-//                            .build();
-//                    notes = query.list();
-//                    noteAdapter.setList(notes);
-
 
                     Intent i=new Intent(MainActivity.this,SearchActivity.class);
 
@@ -148,12 +140,12 @@ public class MainActivity extends AppCompatActivity {
         mSearchView.setOnSearchViewListener(new SearchView.SearchViewListener() {
             @Override
             public void onSearchViewShown() {
-                Logger.e("onSearchViewShown");
+
             }
 
             @Override
             public void onSearchViewClosed() {
-                Logger.e("onSearchViewClosed");
+
             }
         });
 
@@ -224,7 +216,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
 
-
         }
     }
 
@@ -252,8 +243,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_search:
                 showSearchView();
                 break;
-            case R.id.item_about:
-                startActivity(new Intent(MainActivity.this, AboutActivity.class));
+//          case R.id.item_about:
+//              startActivity(new Intent(MainActivity.this, AboutActivity.class));
+//              break;
+            case R.id.item_recyclebin:
+
                 break;
         }
 

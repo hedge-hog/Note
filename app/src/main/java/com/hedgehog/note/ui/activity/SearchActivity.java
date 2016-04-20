@@ -20,7 +20,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.greenrobot.dao.query.Query;
+import de.greenrobot.dao.query.QueryBuilder;
 import de.greenrobot.event.EventBus;
 
 public class SearchActivity extends BaseActivity {
@@ -42,14 +42,16 @@ public class SearchActivity extends BaseActivity {
         initToolbar("搜索结果");
         EventBus.getDefault().register(SearchActivity.this);
 
-
         String noteText = getIntent().getStringExtra("noteText");
 
-        Query query = getNoteDao().queryBuilder()
-//              .where(NoteDao.Properties.Title.like("%" + noteText + "%"))
-                .where(NoteDao.Properties.Content.like("%" + noteText + "%"))
-                .orderAsc(NoteDao.Properties.Date)
-                .build();
+//      QueryBuilder.LOG_SQL = true;
+//      QueryBuilder.LOG_VALUES = true;
+
+        QueryBuilder<Note> query = getNoteDao().queryBuilder();
+        query.whereOr(NoteDao.Properties.Content.like("%" + noteText + "%"), NoteDao.Properties.Title.like("%" + noteText + "%"));
+        query.orderAsc(NoteDao.Properties.Date);
+        query.build();
+
         notes = query.list();
 
         if (notes.size() == 0) {
@@ -69,7 +71,6 @@ public class SearchActivity extends BaseActivity {
                 break;
         }
     }
-
 
     private void initAdapter(final List<Note> notes) {
         noteAdapter = new NoteAdapter(SearchActivity.this, notes);

@@ -44,6 +44,8 @@ public class NoteDetailActivity extends BaseActivity {
     private String noteTitle;
 
     private NotifyEvent<Note> event;
+    List<Note> notes;
+    Note note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +64,14 @@ public class NoteDetailActivity extends BaseActivity {
         Query query = getNoteDao().queryBuilder()
                 .where(NoteDao.Properties.Id.eq(noteId))
                 .build();
-        List<Note> notes = query.list();
+        notes= query.list();
 
         editNoteTitle.setText(notes.get(0).getTitle());
         editNoteContent.setText(notes.get(0).getContent());
         editNoteTitle.setSelection(notes.get(0).getTitle().length());
         editNoteContent.setSelection(notes.get(0).getContent().length());
+
+        note = new Note(noteId, noteText, noteTitle, null, null, null, new Date());
 
         editNoteContent.setOnFocusChangeListener(f);
         editNoteTitle.setOnFocusChangeListener(f);
@@ -150,11 +154,23 @@ public class NoteDetailActivity extends BaseActivity {
         finish();
     }
 
+    private void recyclebinNote(){
+        noteText = editNoteContent.getText().toString();
+        noteTitle = editNoteTitle.getText().toString();
+        note.setContent(noteText);
+        note.setTitle(noteTitle);
+        note.setType("");
+        getNoteDao().update(note);
+        event.setType(NotifyEvent.UPDATE_NOTE);
+        EventBus.getDefault().post(event);
+    }
+
 
     private void updateNote() {
         noteText = editNoteContent.getText().toString();
         noteTitle = editNoteTitle.getText().toString();
-        Note note = new Note(noteId, noteText, noteTitle, null, null, null, new Date());
+        note.setContent(noteText);
+        note.setTitle(noteTitle);
         getNoteDao().update(note);
         event.setType(NotifyEvent.UPDATE_NOTE);
         EventBus.getDefault().post(event);
